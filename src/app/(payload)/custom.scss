@@ -1,0 +1,9 @@
+:root {
+  --theme-success-500: #35e3ff;
+}
+html[data-theme='dark'] {
+  --theme-elevation-0: #0a0a0e;
+  --theme-elevation-50: #121219;
+  --theme-elevation-100: #1b1b25;
+}
+.nav__link--active, .nav__link:hover { color: #ff3fa4 !important; }

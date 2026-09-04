@@ -1,59 +1,30 @@
-import { headers as getHeaders } from 'next/headers.js'
-import Image from 'next/image'
-import { getPayload } from 'payload'
-import React from 'react'
-import { fileURLToPath } from 'url'
+import type { Metadata } from 'next'
+import { getGlobal, getInfos, getPayloadClient } from '@/lib/payload'
+import { buildMetadata, SITE } from '@/lib/seo'
+import { AccueilView } from './AccueilView'
 
-import config from '@/payload.config'
-import './styles.css'
+export const dynamic = 'force-static'
+export const revalidate = 86400
 
-export default async function HomePage() {
-  const headers = await getHeaders()
-  const payloadConfig = await config
-  const payload = await getPayload({ config: payloadConfig })
-  const { user } = await payload.auth({ headers })
+export async function generateMetadata(): Promise<Metadata> {
+  const accueil = await getGlobal('accueil')
+  return buildMetadata({
+    meta: accueil.meta,
+    title: `${SITE.alt} · ${SITE.name}, ${SITE.tagline}`,
+    description: accueil.bandeau?.accroche ?? '',
+    path: '/',
+    image: accueil.bandeau?.photo,
+  })
+}
 
-  const fileURL = `vscode://file/${fileURLToPath(import.meta.url)}`
-
-  return (
-    <div className="home">
-      <div className="content">
-        <picture>
-          <source srcSet="https://raw.githubusercontent.com/payloadcms/payload/3.x/packages/ui/src/assets/payload-favicon.svg" />
-          <Image
-            alt="Payload Logo"
-            height={65}
-            src="https://raw.githubusercontent.com/payloadcms/payload/3.x/packages/ui/src/assets/payload-favicon.svg"
-            width={65}
-          />
-        </picture>
-        {!user && <h1>Welcome to your new project.</h1>}
-        {user && <h1>Welcome back, {user.email}</h1>}
-        <div className="links">
-          <a
-            className="admin"
-            href={payloadConfig.routes.admin}
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Go to admin panel
-          </a>
-          <a
-            className="docs"
-            href="https://payloadcms.com/docs"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Documentation
-          </a>
-        </div>
-      </div>
-      <div className="footer">
-        <p>Update this page by editing</p>
-        <a className="codeLink" href={fileURL}>
-          <code>app/(frontend)/page.tsx</code>
-        </a>
-      </div>
-    </div>
-  )
+export default async function Page() {
+  const payload = await getPayloadClient()
+  const [accueil, infos, cours, photos, actus] = await Promise.all([
+    getGlobal('accueil'),
+    getInfos(),
+    payload.find({ collection: 'cours', sort: 'ordre', limit: 50, depth: 0 }),
+    payload.find({ collection: 'galerie-photos', sort: 'ordre', limit: 5, depth: 1 }),
+    payload.find({ collection: 'actualites', where: { publie: { equals: true } }, sort: '-date', limit: 3, depth: 1 }),
+  ])
+  return <AccueilView accueil={accueil} infos={infos} cours={cours.docs} photos={photos.docs} actus={actus.docs} />
 }

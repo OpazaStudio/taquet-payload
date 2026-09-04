@@ -1,0 +1,480 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-02T00:00:00Z",
+  "title": "Design System: Au Taquet · Music Dance Roller",
+  "extensions": {
+    "colorMeta": {
+      "fuchsia": {
+        "role": "primary",
+        "displayName": "Fuchsia",
+        "canonical": "#ff3fa4",
+        "tonalRamp": [
+          "#2e0018",
+          "#5a0032",
+          "#8a0a54",
+          "#c9127a",
+          "#ff3fa4",
+          "#ff7dc0",
+          "#ffb3da",
+          "#ffe0ef"
+        ]
+      },
+      "fuchsia-deep": {
+        "role": "primary",
+        "displayName": "Fuchsia profond",
+        "canonical": "#c9127a",
+        "tonalRamp": [
+          "#2e0018",
+          "#5a0032",
+          "#8a0a54",
+          "#c9127a",
+          "#ff3fa4",
+          "#ff7dc0",
+          "#ffb3da",
+          "#ffe0ef"
+        ]
+      },
+      "aqua": {
+        "role": "secondary",
+        "displayName": "Aqua",
+        "canonical": "#35e3ff",
+        "tonalRamp": [
+          "#00222a",
+          "#004452",
+          "#00768a",
+          "#00a9c4",
+          "#35e3ff",
+          "#7aecff",
+          "#b0f3ff",
+          "#e0fbff"
+        ]
+      },
+      "aqua-deep": {
+        "role": "secondary",
+        "displayName": "Aqua profond",
+        "canonical": "#00a9c4",
+        "tonalRamp": [
+          "#00222a",
+          "#004452",
+          "#00768a",
+          "#00a9c4",
+          "#35e3ff",
+          "#7aecff",
+          "#b0f3ff",
+          "#e0fbff"
+        ]
+      },
+      "mandarine": {
+        "role": "tertiary",
+        "displayName": "Mandarine",
+        "canonical": "#ff8c1a",
+        "tonalRamp": [
+          "#2e1600",
+          "#5c2c00",
+          "#9a4a00",
+          "#d66a00",
+          "#ff8c1a",
+          "#ffab57",
+          "#ffcb96",
+          "#ffe9d2"
+        ]
+      },
+      "mandarine-deep": {
+        "role": "tertiary",
+        "displayName": "Mandarine profond",
+        "canonical": "#d66a00",
+        "tonalRamp": [
+          "#2e1600",
+          "#5c2c00",
+          "#9a4a00",
+          "#d66a00",
+          "#ff8c1a",
+          "#ffab57",
+          "#ffcb96",
+          "#ffe9d2"
+        ]
+      },
+      "chrome-950": {
+        "role": "neutral",
+        "displayName": "Chrome 950 (fond)",
+        "canonical": "#0a0a0e",
+        "tonalRamp": [
+          "#0a0a0e",
+          "#121219",
+          "#1b1b25",
+          "#292935",
+          "#5c5d6e",
+          "#b6b7c4",
+          "#ebebf1",
+          "#ffffff"
+        ]
+      },
+      "chrome-900": {
+        "role": "neutral",
+        "displayName": "Chrome 900",
+        "canonical": "#121219",
+        "tonalRamp": [
+          "#0a0a0e",
+          "#121219",
+          "#1b1b25",
+          "#292935",
+          "#5c5d6e",
+          "#b6b7c4",
+          "#ebebf1",
+          "#ffffff"
+        ]
+      },
+      "chrome-800": {
+        "role": "neutral",
+        "displayName": "Chrome 800 (tuile chrome)",
+        "canonical": "#1b1b25",
+        "tonalRamp": [
+          "#0a0a0e",
+          "#121219",
+          "#1b1b25",
+          "#292935",
+          "#5c5d6e",
+          "#b6b7c4",
+          "#ebebf1",
+          "#ffffff"
+        ]
+      },
+      "chrome-700": {
+        "role": "neutral",
+        "displayName": "Chrome 700 (joint)",
+        "canonical": "#292935",
+        "tonalRamp": [
+          "#0a0a0e",
+          "#121219",
+          "#1b1b25",
+          "#292935",
+          "#5c5d6e",
+          "#b6b7c4",
+          "#ebebf1",
+          "#ffffff"
+        ]
+      },
+      "chrome-500": {
+        "role": "neutral",
+        "displayName": "Chrome 500 (placeholder)",
+        "canonical": "#5c5d6e",
+        "tonalRamp": [
+          "#0a0a0e",
+          "#121219",
+          "#1b1b25",
+          "#292935",
+          "#5c5d6e",
+          "#b6b7c4",
+          "#ebebf1",
+          "#ffffff"
+        ]
+      },
+      "chrome-300": {
+        "role": "neutral",
+        "displayName": "Chrome 300 (texte secondaire)",
+        "canonical": "#b6b7c4",
+        "tonalRamp": [
+          "#0a0a0e",
+          "#121219",
+          "#1b1b25",
+          "#292935",
+          "#5c5d6e",
+          "#b6b7c4",
+          "#ebebf1",
+          "#ffffff"
+        ]
+      },
+      "chrome-100": {
+        "role": "neutral",
+        "displayName": "Chrome 100 (corps)",
+        "canonical": "#ebebf1",
+        "tonalRamp": [
+          "#0a0a0e",
+          "#121219",
+          "#1b1b25",
+          "#292935",
+          "#5c5d6e",
+          "#b6b7c4",
+          "#ebebf1",
+          "#ffffff"
+        ]
+      },
+      "mirror": {
+        "role": "neutral",
+        "displayName": "Miroir",
+        "canonical": "#ffffff",
+        "tonalRamp": [
+          "#0a0a0e",
+          "#121219",
+          "#1b1b25",
+          "#292935",
+          "#5c5d6e",
+          "#b6b7c4",
+          "#ebebf1",
+          "#ffffff"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Encre",
+        "canonical": "#0a0a0e",
+        "tonalRamp": [
+          "#0a0a0e",
+          "#121219",
+          "#1b1b25",
+          "#292935",
+          "#5c5d6e",
+          "#b6b7c4",
+          "#ebebf1",
+          "#ffffff"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Titre de l'accueil seulement ; nom en capitales du pied de page."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "H1 des pages internes et titre de la section privatisation."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "H2 de section."
+      },
+      "figure": {
+        "displayName": "Figure",
+        "purpose": "Le grand chiffre d'une tuile : prix, nombre, numéro de téléphone."
+      },
+      "tile-title": {
+        "displayName": "Tile title",
+        "purpose": "Première ligne d'une tuile-réponse (état d'ouverture, tarif, adresse)."
+      },
+      "tile-label": {
+        "displayName": "Tile label",
+        "purpose": "Libellés de tarif, de bouton, de champ, de case de pied de page, nom de cours."
+      },
+      "nav": {
+        "displayName": "Nav",
+        "purpose": "Tuiles de navigation et en-têtes de jour du planning."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Corps de texte sur fond sombre, 52 à 68ch."
+      },
+      "body-sm": {
+        "displayName": "Body small",
+        "purpose": "Précisions de tuile, notes, résumés."
+      },
+      "caption": {
+        "displayName": "Caption",
+        "purpose": "Légendes photo, mentions, niveaux de cours."
+      }
+    },
+    "shadows": [
+      {
+        "name": "bevel-tile",
+        "value": "inset 0 1px 0 rgb(255 255 255 / 0.35)",
+        "purpose": "Biseau supérieur d'1 px de toute tuile claire ou de facette ; seule « ombre » du monde."
+      },
+      {
+        "name": "bevel-tile-chrome",
+        "value": "inset 0 1px 0 rgb(255 255 255 / 0.12)",
+        "purpose": "Biseau atténué de la tuile chrome-800."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out-expo",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Unique courbe du site : balayage de lumière au survol, entrée des sections."
+      },
+      {
+        "name": "tile-lit-sweep",
+        "value": "transform 700ms ease-out-expo, opacity 500ms ease-out-expo",
+        "purpose": "Le disque blanc en screen qui traverse une tuile cliquable au survol / focus."
+      },
+      {
+        "name": "reveal",
+        "value": "900ms ease-out-expo, animation-timeline: view(), range entry 0% → 30%, translateY(16px) → 0",
+        "purpose": "Entrée des sections au défilement ; désactivée sous prefers-reduced-motion."
+      },
+      {
+        "name": "ball-angle",
+        "value": "--a (rad) sur <html>, publié par DiscoBall",
+        "purpose": "Angle partagé qui déplace les disques de lumière via sin/cos en CSS."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "md",
+        "value": "768px"
+      },
+      {
+        "name": "lg",
+        "value": "1024px"
+      },
+      {
+        "name": "xl",
+        "value": "1280px"
+      },
+      {
+        "name": "container",
+        "value": "1440px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Tuile téléphone (bouton principal)",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Le bouton principal du site : tuile de facette qui attrape la lumière, libellé puis numéro tabulaire géant.",
+      "html": "<a class=\"ds-phone-tile\" href=\"tel:+33546311772\"><span class=\"ds-phone-label\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z\"/></svg>Appeler pour réserver</span><span class=\"ds-phone-number\">05 46 31 17 72</span></a>",
+      "css": ".ds-phone-tile { position: relative; isolation: isolate; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; min-height: 10rem; padding: 20px; background: var(--facet, #ff3fa4); color: #0a0a0e; text-decoration: none; border-radius: 0; } .ds-phone-label { display: flex; align-items: center; gap: 8px; font-family: Unbounded, 'Arial Black', sans-serif; font-weight: 700; font-size: 0.9375rem; letter-spacing: -0.02em; } .ds-phone-number { display: block; margin-top: 24px; font-family: Unbounded, 'Arial Black', sans-serif; font-weight: 900; font-size: clamp(1.125rem, 4.7vw, 2rem); line-height: 0.9; letter-spacing: -0.035em; font-variant-numeric: tabular-nums; } .ds-phone-tile::after { content: ''; position: absolute; inset: -40% auto auto -30%; width: 60%; aspect-ratio: 1; border-radius: 50%; background: rgb(255 255 255 / 0.55); mix-blend-mode: screen; opacity: 0; transform: translate(-40%, -10%) scale(0.6); transition: transform 700ms cubic-bezier(0.16, 1, 0.3, 1), opacity 500ms cubic-bezier(0.16, 1, 0.3, 1); pointer-events: none; z-index: -1; } .ds-phone-tile:hover::after, .ds-phone-tile:focus-visible::after { opacity: 1; transform: translate(120%, 60%) scale(1); } .ds-phone-tile:focus-visible { outline: 2px solid #ffffff; outline-offset: 3px; }"
+    },
+    {
+      "name": "Bouton primaire",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Bouton de formulaire : tuile de facette, Unbounded 700, icône Lucide devant.",
+      "html": "<button class=\"ds-btn-primary\" type=\"submit\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z\"/><path d=\"m21.854 2.147-10.94 10.939\"/></svg>Envoyer le message</button>",
+      "css": ".ds-btn-primary { position: relative; isolation: isolate; overflow: hidden; display: inline-flex; align-items: center; justify-content: center; gap: 12px; padding: 16px 24px; background: var(--facet, #ff3fa4); color: #0a0a0e; border: none; border-radius: 0; font-family: Unbounded, 'Arial Black', sans-serif; font-weight: 700; font-size: 0.9375rem; letter-spacing: -0.02em; cursor: pointer; } .ds-btn-primary::after { content: ''; position: absolute; inset: -40% auto auto -30%; width: 60%; aspect-ratio: 1; border-radius: 50%; background: rgb(255 255 255 / 0.55); mix-blend-mode: screen; opacity: 0; transform: translate(-40%, -10%) scale(0.6); transition: transform 700ms cubic-bezier(0.16, 1, 0.3, 1), opacity 500ms cubic-bezier(0.16, 1, 0.3, 1); pointer-events: none; z-index: -1; } .ds-btn-primary:hover::after, .ds-btn-primary:focus-visible::after { opacity: 1; transform: translate(120%, 60%) scale(1); } .ds-btn-primary:focus-visible { outline: 2px solid #ffffff; outline-offset: 3px; } .ds-btn-primary:disabled { opacity: 0.6; cursor: default; }"
+    },
+    {
+      "name": "Bouton secondaire (miroir)",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Tuile blanche miroir avec flèche : « Réserver un anniversaire ».",
+      "html": "<a class=\"ds-btn-secondary\" href=\"#\">Réserver un anniversaire<svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14\"/><path d=\"m12 5 7 7-7 7\"/></svg></a>",
+      "css": ".ds-btn-secondary { position: relative; isolation: isolate; overflow: hidden; display: inline-flex; align-items: center; gap: 12px; padding: 16px 24px; background: #ffffff; color: #0a0a0e; text-decoration: none; border-radius: 0; font-family: Unbounded, 'Arial Black', sans-serif; font-weight: 700; font-size: 0.9375rem; letter-spacing: -0.02em; } .ds-btn-secondary::after { content: ''; position: absolute; inset: -40% auto auto -30%; width: 60%; aspect-ratio: 1; border-radius: 50%; background: rgb(255 255 255 / 0.55); mix-blend-mode: screen; opacity: 0; transform: translate(-40%, -10%) scale(0.6); transition: transform 700ms cubic-bezier(0.16, 1, 0.3, 1), opacity 500ms cubic-bezier(0.16, 1, 0.3, 1); pointer-events: none; z-index: -1; } .ds-btn-secondary:hover::after, .ds-btn-secondary:focus-visible::after { opacity: 1; transform: translate(120%, 60%) scale(1); } .ds-btn-secondary:focus-visible { outline: 2px solid #ffffff; outline-offset: 3px; }"
+    },
+    {
+      "name": "Navigation en tuiles",
+      "kind": "nav",
+      "refersTo": "nav-tile",
+      "description": "Rangée de tuiles chrome de 64 px séparées par des joints d'1 px ; la page courante est la tuile allumée en facette.",
+      "html": "<nav class=\"ds-nav\" aria-label=\"Navigation principale\"><a class=\"ds-nav-tile ds-nav-tile--active\" href=\"#\" aria-current=\"page\">Accueil</a><a class=\"ds-nav-tile\" href=\"#\">La patinoire</a><a class=\"ds-nav-tile\" href=\"#\">Cours</a><a class=\"ds-nav-tile\" href=\"#\">Anniversaires</a><a class=\"ds-nav-tile\" href=\"#\">Accès</a><a class=\"ds-nav-tile\" href=\"#\">Contact</a></nav>",
+      "css": ".ds-nav { display: flex; align-items: stretch; gap: 1px; height: 64px; background: #0a0a0e; } .ds-nav-tile { position: relative; isolation: isolate; overflow: hidden; display: flex; align-items: center; padding: 0 16px; background: #1b1b25; color: #ebebf1; text-decoration: none; border-radius: 0; font-family: Unbounded, 'Arial Black', sans-serif; font-weight: 500; font-size: 0.8125rem; letter-spacing: 0.02em; transition: color 150ms; } .ds-nav-tile:hover { color: #ffffff; } .ds-nav-tile--active { background: var(--facet, #ff3fa4); color: #0a0a0e; } .ds-nav-tile::after { content: ''; position: absolute; inset: -40% auto auto -30%; width: 60%; aspect-ratio: 1; border-radius: 50%; background: rgb(255 255 255 / 0.55); mix-blend-mode: screen; opacity: 0; transform: translate(-40%, -10%) scale(0.6); transition: transform 700ms cubic-bezier(0.16, 1, 0.3, 1), opacity 500ms cubic-bezier(0.16, 1, 0.3, 1); pointer-events: none; z-index: -1; } .ds-nav-tile:hover::after, .ds-nav-tile:focus-visible::after { opacity: 1; transform: translate(120%, 60%) scale(1); } .ds-nav-tile:focus-visible { outline: 2px solid #ffffff; outline-offset: 3px; }"
+    },
+    {
+      "name": "Champ de formulaire",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Champ en tuile chrome-800 sans bordure, libellé Unbounded au-dessus, caret à la couleur de facette.",
+      "html": "<div class=\"ds-field\"><label class=\"ds-field-label\" for=\"ds-nom\">Votre nom</label><input class=\"ds-input\" id=\"ds-nom\" name=\"nom\" placeholder=\"Date, nombre de personnes…\"></div>",
+      "css": ".ds-field { display: block; } .ds-field-label { display: block; font-family: Unbounded, 'Arial Black', sans-serif; font-weight: 700; font-size: 0.8125rem; letter-spacing: -0.02em; color: #ffffff; } .ds-input { display: block; width: 100%; margin-top: 8px; padding: 12px 16px; background: #1b1b25; color: #ffffff; border: none; border-radius: 0; font-family: 'Bricolage Grotesque', system-ui, sans-serif; font-size: 1.0625rem; caret-color: var(--facet, #ff3fa4); } .ds-input::placeholder { color: #5c5d6e; } .ds-input:focus-visible { outline: 2px solid #ffffff; outline-offset: 0; }"
+    },
+    {
+      "name": "Tuile-réponse (état d'ouverture)",
+      "kind": "card",
+      "refersTo": "tile-aqua",
+      "description": "Première tuile de la bande de réponses : aplat aqua, encre, titre Unbounded 500 avec pastille qui pulse, précision en dessous.",
+      "html": "<div class=\"ds-tile ds-tile--aqua\"><p class=\"ds-tile-title\"><span class=\"ds-tile-dot\" aria-hidden=\"true\"></span>Ouvert jusqu’à 20h</p><p class=\"ds-tile-sub\">Sam. 14h–20h · Dim. 14h30–19h</p></div>",
+      "css": ".ds-tile { position: relative; isolation: isolate; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; min-height: 10rem; padding: 20px; border-radius: 0; font-family: 'Bricolage Grotesque', system-ui, sans-serif; font-variant-numeric: tabular-nums; } .ds-tile--aqua { background: #35e3ff; color: #0a0a0e; } .ds-tile-title { margin: 0; font-family: Unbounded, 'Arial Black', sans-serif; font-weight: 500; font-size: 1.375rem; line-height: 1.25; letter-spacing: -0.02em; } .ds-tile-dot { display: inline-block; width: 12px; height: 12px; margin-right: 8px; border-radius: 50%; background: #0a0a0e; vertical-align: middle; animation: ds-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; } .ds-tile-sub { margin: 8px 0 0; font-size: 0.9375rem; line-height: 1.375; } @keyframes ds-pulse { 50% { opacity: 0.5; } } @media (prefers-reduced-motion: reduce) { .ds-tile-dot { animation: none; } }"
+    },
+    {
+      "name": "Tuile de tarif",
+      "kind": "card",
+      "refersTo": "tile-chrome",
+      "description": "Une tuile par prix : libellé Unbounded 700, prix en chiffre géant serré, précision en chrome-300 ; la première de la grille passe en facette.",
+      "html": "<ul class=\"ds-tarifs\"><li class=\"ds-tarif ds-tarif--facet\"><span class=\"ds-tarif-label\">Entrée</span><span><span class=\"ds-tarif-prix\">9 €</span><span class=\"ds-tarif-sub\">Patinage libre, avec vos rollers ou quads</span></span></li><li class=\"ds-tarif\"><span class=\"ds-tarif-label\">Location de rollers</span><span><span class=\"ds-tarif-prix\">4 €</span><span class=\"ds-tarif-sub\">Rollers ou quads, chaussettes obligatoires</span></span></li></ul>",
+      "css": ".ds-tarifs { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; margin: 0; padding: 0; list-style: none; background: #292935; border: 1px solid #292935; } .ds-tarif { position: relative; display: flex; flex-direction: column; justify-content: space-between; min-height: 9.5rem; padding: 20px; background: #1b1b25; color: #ffffff; font-family: 'Bricolage Grotesque', system-ui, sans-serif; font-variant-numeric: tabular-nums; } .ds-tarif--facet { background: var(--facet, #ff3fa4); color: #0a0a0e; } .ds-tarif-label { font-family: Unbounded, 'Arial Black', sans-serif; font-weight: 700; font-size: 0.9375rem; line-height: 1.375; letter-spacing: -0.02em; } .ds-tarif-prix { display: block; margin-top: 16px; font-family: Unbounded, 'Arial Black', sans-serif; font-weight: 900; font-size: 2.75rem; line-height: 1; letter-spacing: -0.035em; } .ds-tarif-sub { display: block; margin-top: 8px; font-size: 0.9375rem; line-height: 1.375; color: #b6b7c4; } .ds-tarif--facet .ds-tarif-sub { color: inherit; }"
+    },
+    {
+      "name": "Planning (colonne d'un jour)",
+      "kind": "custom",
+      "refersTo": "planning-cell",
+      "description": "Une colonne de la semaine : en-tête de jour sur chrome-950, puis les créneaux en tuiles miroir (patinage libre) ou de facette (cours).",
+      "html": "<div class=\"ds-planning\"><ol class=\"ds-planning-day\"><li class=\"ds-planning-head\">Samedi</li><li class=\"ds-planning-cell ds-planning-cell--mirror\"><span class=\"ds-planning-time\">9h30–10h30</span><span class=\"ds-planning-name\">Jump dance</span></li><li class=\"ds-planning-cell ds-planning-cell--fuchsia\"><span class=\"ds-planning-time\">10h50</span><span class=\"ds-planning-name\">K-pop</span><span class=\"ds-planning-sub\">Débutants</span></li><li class=\"ds-planning-cell ds-planning-cell--mirror\"><span class=\"ds-planning-time\">14h–20h</span><span class=\"ds-planning-name\">Patinage libre</span></li></ol></div>",
+      "css": ".ds-planning { border: 1px solid #292935; background: #292935; font-family: 'Bricolage Grotesque', system-ui, sans-serif; font-variant-numeric: tabular-nums; } .ds-planning-day { display: flex; flex-direction: column; gap: 1px; margin: 0; padding: 0; list-style: none; background: #292935; } .ds-planning-head { padding: 12px; background: #0a0a0e; color: #ffffff; font-family: Unbounded, 'Arial Black', sans-serif; font-weight: 700; font-size: 0.8125rem; text-transform: uppercase; letter-spacing: 0.04em; } .ds-planning-cell { position: relative; padding: 12px; color: #0a0a0e; } .ds-planning-cell--mirror { background: #ffffff; } .ds-planning-cell--fuchsia { background: #ff3fa4; } .ds-planning-cell--mandarine { background: #ff8c1a; } .ds-planning-cell--aqua { background: #35e3ff; } .ds-planning-time { display: block; font-weight: 600; font-size: 0.875rem; } .ds-planning-name { display: block; font-family: Unbounded, 'Arial Black', sans-serif; font-weight: 700; font-size: 0.9375rem; line-height: 1.25; letter-spacing: -0.02em; } .ds-planning-sub { display: block; margin-top: 4px; font-size: 0.8125rem; line-height: 1.375; }"
+    },
+    {
+      "name": "Nappe de reflets",
+      "kind": "custom",
+      "refersTo": "tile-facet",
+      "description": "Canvas en fusion screen couvrant le héros : petits losanges rangés en anneaux concentriques autour de la boule, une couleur de palette par anneau, luminosité décroissante avec la distance et bandes qui balaient les anneaux au rythme de la rotation (composant LightField, aucune dépendance).",
+      "html": "<div class=\"ds-field\" aria-hidden=\"true\"><span class=\"ds-spot\" style=\"left:62%;top:30%;background:#ff3fa4\"></span><span class=\"ds-spot\" style=\"left:70%;top:18%;background:#35e3ff\"></span><span class=\"ds-spot\" style=\"left:78%;top:44%;background:#ff8c1a;opacity:.6\"></span></div>",
+      "css": ".ds-field { position: relative; height: 200px; overflow: hidden; background: #0a0a0e; } .ds-spot { position: absolute; width: 14px; height: 10px; transform: rotate(-20deg); mix-blend-mode: screen; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "La boule à facettes",
+    "overview": "Le site est une boule à miroirs déployée à plat. Tout ce qui porte une information est une tuile : un rectangle à angles vifs, sans rayon, sans dégradé, sans halo, sans bordure ni biseau, séparé d'une voisine chrome par un joint d'1 px de chrome sombre. Les tuiles sont de quatre matières, blanc miroir, chrome et trois aplats de facette (fuchsia, mandarine, aqua), et c'est la matière, pas une ombre, qui dit la hiérarchie : ce qui répond à la question du visiteur (ouvert, prix, adresse, téléphone) est sur aplat, ce qui explique est sur chrome.\n\nAu-dessus du fond chrome quasi noir, une boule à facettes en projection sphérique tourne avec le défilement et publie son angle dans une variable CSS ; des ellipses de lumière nettes, en fusion « screen », dérivent avec elle et fabriquent une troisième couleur là où elles se croisent. C'est le seul ornement du monde et il est vivant. Le survol d'une tuile fait passer un disque de lumière blanc sur sa surface : la tuile « attrape la lumière ». Le monde refuse le hero photo au bokeh flou et la grille de cartes blanches arrondies des centres sportifs.\n\nLa densité est celle d'un panneau d'affichage : de très grands titres Unbounded noirs et serrés, des corps Bricolage Grotesque courts, des chiffres tabulaires pour horaires et prix, et rien entre le panneau et la note de bas de page. Chaque page reprend le même emblème (la boule) recoloré à la couleur de facette de la page, et cette couleur teinte aussi la sélection, le caret, le pouce de la barre de défilement et le soulignement des liens.",
+    "keyCharacteristics": [
+      "Tuiles à angles vifs (rayon 0), aplats purs sans bordure ni biseau ; joint d'1 px chrome-700 seulement entre deux tuiles chrome ou deux photos ; jamais de rayon, de dégradé ni de halo.",
+      "Fond chrome-950 ; trois aplats de facette + blanc miroir ; texte encre sur aplat, texte chrome-100 / miroir sur chrome.",
+      "Une couleur de facette par page (`--facet`), portée par la boule, la tuile de navigation active, le bouton d'appel, la sélection et les liens.",
+      "Nappe de reflets (`LightField`) : losanges en anneaux concentriques autour de la boule, canvas en `mix-blend-mode: screen`, tournant au même angle que la boule.",
+      "Unbounded noir (900) serré pour le display, Bricolage Grotesque pour le texte, chiffres tabulaires partout.",
+      "Module de 8 px pour tailles, gouttières et rythme ; largeur maximale 1440 px."
+    ],
+    "rules": [
+      {
+        "name": "The Encre-sur-aplat Rule",
+        "body": "Sur un aplat de facette ou une tuile miroir, le texte est toujours encre (`{colors.ink}`), jamais blanc. Le blanc sur fuchsia ou sur aqua n'existe pas dans ce monde.",
+        "section": "colors"
+      },
+      {
+        "name": "The Une-facette-par-page Rule",
+        "body": "Chaque page a une seule couleur de facette (déclarée dans `PAGE_FACET`). Elle est publiée dans `--facet` sur `<html>` et pilote la boule, la tuile de navigation active, le bouton d'appel, la sélection, le caret, le survol de la barre de défilement et le soulignement des liens riches. Une page ne change pas de facette en cours de route.",
+        "section": "colors"
+      },
+      {
+        "name": "The Reflets-derrière-le-texte Rule",
+        "body": "La nappe de reflets s'éteint en s'éloignant de la boule et tombe à 55 % de sa luminosité dans la colonne de texte du héros (60 % partout sous `lg`) ; un reflet ne fait jamais plus de 16 px et ne concurrence jamais un titre.",
+        "section": "colors"
+      },
+      {
+        "name": "The Panneau-ou-note Rule",
+        "body": "L'échelle saute du panneau (display, headline, figure) à la note (body, small, caption) ; il n'y a pas de taille intermédiaire molle. Si un texte hésite entre les deux, c'est un titre de tuile (1.375rem, 500) ou un libellé (0.9375rem, 700), rien d'autre.",
+        "section": "typography"
+      },
+      {
+        "name": "The Chiffres-tabulaires Rule",
+        "body": "Tout horaire, prix ou numéro de téléphone est en chiffres tabulaires ; les prix s'écrivent avec l'espace fine et le signe € (« 9 € », « 14 € »), jamais « 9.00 ».",
+        "section": "typography"
+      },
+      {
+        "name": "The Display-serré Rule",
+        "body": "Unbounded ne s'emploie qu'à 500, 700 ou 900, avec interligne ≤ 0.95 et approche négative (-0.02em, -0.035em pour les titres géants). Une seule exception d'approche positive : la navigation et les jours du planning à petite taille (+0.02 / +0.04em).",
+        "section": "typography"
+      },
+      {
+        "name": "The Lumière-pas-ombre Rule",
+        "body": "On ne pose jamais de `box-shadow` externe sur une tuile ni de dégradé sur un fond. Pour signaler l'importance, on change la matière de la tuile (chrome → miroir → facette) ou on la fait attraper la lumière.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Aplat-pur Rule",
+        "body": "Une tuile n'a ni bordure, ni biseau, ni filet ; on ne dessine jamais une ligne pour marquer un bord. Si un bord ne se lit pas, on change la matière de la tuile ou du fond, on n'ajoute pas de trait.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** construire chaque bloc d'information comme une tuile : angles vifs, aplat pur, joint chrome-700 d'1 px via `gap: 1px` seulement entre tuiles chrome.",
+      "**Do** mettre le texte en encre (`#0a0a0e`) sur toute tuile de facette ou miroir, et en chrome-100 / miroir sur chrome.",
+      "**Do** déclarer la facette d'une nouvelle page dans `PAGE_FACET` et laisser `--facet` piloter la boule, la navigation active, le bouton d'appel, la sélection et les liens.",
+      "**Do** laisser la nappe de reflets s'éteindre en s'éloignant de la boule et rester discrète derrière le texte.",
+      "**Do** répondre d'abord : la première rangée d'une page porte les tuiles ouvert / prix / adresse / téléphone, le téléphone en facette.",
+      "**Do** écrire horaires, prix et numéros en chiffres tabulaires ; le prix avec l'espace fine et « € ».",
+      "**Do** respecter le module de 8 px : rembourrages 12 / 16 / 20 / 24 px, sections 80 / 128 px, largeur max 1440 px.",
+      "**Do** faire s'allumer (`.tile-lit`) à toute tuile cliquable, et garder le focus visible sur le contour 2 px miroir."
+    ],
+    "donts": [
+      "**Don't** arrondir un angle : aucun `border-radius` sur tuiles, boutons, champs, images ; seule la pastille « ouvert » est un cercle.",
+      "**Don't** poser d'ombre portée, de dégradé ni de halo flou ; la profondeur vient de la matière des tuiles et de la lumière en `screen`.",
+      "**Don't** écrire du blanc sur fuchsia, mandarine ou aqua.",
+      "**Don't** introduire une cinquième couleur (rouge d'erreur, vert de succès, gris bleuté) : l'erreur est mandarine, le succès est fuchsia, le neutre est chrome.",
+      "**Don't** utiliser une taille de texte intermédiaire entre le titre de tuile (1.375rem) et le corps (1.0625rem), ni une graisse Unbounded autre que 500 / 700 / 900.",
+      "**Don't** mettre de photo en plein écran ni de bokeh flou en fond : les photos vivent dans des tuiles coupées net.",
+      "**Don't** doubler la boule : un seul emblème par page, ancré en haut à droite et coupé par le bord.",
+      "**Don't** utiliser de bordure claire ou colorée comme séparateur ; le joint est toujours 1 px chrome-700."
+    ]
+  }
+}

@@ -67,8 +67,12 @@ export interface Config {
   };
   blocks: {};
   collections: {
-    users: User;
+    cours: Cours;
+    actualites: Actualite;
+    'galerie-photos': GaleriePhoto;
     media: Media;
+    'messages-contact': MessageContact;
+    users: User;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -76,19 +80,41 @@ export interface Config {
   };
   collectionsJoins: {};
   collectionsSelect: {
-    users: UsersSelect<false> | UsersSelect<true>;
+    cours: CoursSelect<false> | CoursSelect<true>;
+    actualites: ActualitesSelect<false> | ActualitesSelect<true>;
+    'galerie-photos': GaleriePhotosSelect<false> | GaleriePhotosSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    'messages-contact': MessagesContactSelect<false> | MessagesContactSelect<true>;
+    users: UsersSelect<false> | UsersSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
   };
   db: {
-    defaultIDType: string;
+    defaultIDType: number;
   };
   fallbackLocale: null;
-  globals: {};
-  globalsSelect: {};
+  globals: {
+    accueil: Accueil;
+    patinoire: Patinoire;
+    'page-cours': PageCours;
+    anniversaires: Anniversaires;
+    acces: Acces;
+    contact: Contact;
+    'mentions-legales': MentionsLegales;
+    'infos-pratiques': InfosPratiques;
+  };
+  globalsSelect: {
+    accueil: AccueilSelect<false> | AccueilSelect<true>;
+    patinoire: PatinoireSelect<false> | PatinoireSelect<true>;
+    'page-cours': PageCoursSelect<false> | PageCoursSelect<true>;
+    anniversaires: AnniversairesSelect<false> | AnniversairesSelect<true>;
+    acces: AccesSelect<false> | AccesSelect<true>;
+    contact: ContactSelect<false> | ContactSelect<true>;
+    'mentions-legales': MentionsLegalesSelect<false> | MentionsLegalesSelect<true>;
+    'infos-pratiques': InfosPratiquesSelect<false> | InfosPratiquesSelect<true>;
+  };
   locale: null;
   widgets: {
     collections: CollectionsWidget;
@@ -118,11 +144,186 @@ export interface UserAuthOperations {
   };
 }
 /**
+ * Un cours par intervenant. Ils s’affichent sur la page Cours et dans le planning de la semaine.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "cours".
+ */
+export interface Cours {
+  id: number;
+  /**
+   * Ex. « Roller », « Roller dance », « Zumba ».
+   */
+  nom: string;
+  intervenant?: string | null;
+  organisme?: string | null;
+  telephone?: string | null;
+  siteWeb?: string | null;
+  /**
+   * Niveaux, public, ce qu’il faut savoir. 2 ou 3 phrases.
+   */
+  description?: string | null;
+  /**
+   * Un créneau par ligne. Les heures au format 17:00.
+   */
+  creneaux?:
+    | {
+        jour: 'lundi' | 'mardi' | 'mercredi' | 'jeudi' | 'vendredi' | 'samedi' | 'dimanche';
+        debut: string;
+        fin?: string | null;
+        niveau?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  image?: (number | null) | Media;
+  couleur?: ('fuchsia' | 'mandarine' | 'aqua' | 'blanc') | null;
+  ordre?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Photos, logo et PDF. Une image de 1600 px de large suffit ; le site la redimensionne.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media".
+ */
+export interface Media {
+  id: number;
+  /**
+   * Une phrase qui décrit la photo (lue par Google et par les lecteurs d’écran). Ex. « Enfants en roller en file indienne sur la piste ».
+   */
+  alt: string;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+  sizes?: {
+    miniature?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    carte?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    large?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    og?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+  };
+}
+/**
+ * Soirées, événements, fermetures exceptionnelles. Les actualités publiées apparaissent sur l’accueil.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "actualites".
+ */
+export interface Actualite {
+  id: number;
+  titre: string;
+  date: string;
+  publie?: boolean | null;
+  /**
+   * Généré automatiquement depuis le titre si vide. Lettres, chiffres et tirets.
+   */
+  slug?: string | null;
+  image?: (number | null) | Media;
+  /**
+   * Une ou deux phrases affichées dans la liste et sur l’accueil.
+   */
+  resume: string;
+  contenu?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (number | null) | Media;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Les photos de la page Galerie. Les premières (ordre le plus petit) apparaissent aussi sur l’accueil.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "galerie-photos".
+ */
+export interface GaleriePhoto {
+  id: number;
+  image: number | Media;
+  legende: string;
+  ordre?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Les demandes envoyées depuis le formulaire de contact du site.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "messages-contact".
+ */
+export interface MessageContact {
+  id: number;
+  nom: string;
+  email: string;
+  telephone?: string | null;
+  message: string;
+  lu?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Les personnes qui peuvent se connecter à cette interface.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
-  id: string;
+  id: number;
+  nom?: string | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -144,29 +345,10 @@ export interface User {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "media".
- */
-export interface Media {
-  id: string;
-  alt: string;
-  updatedAt: string;
-  createdAt: string;
-  url?: string | null;
-  thumbnailURL?: string | null;
-  filename?: string | null;
-  mimeType?: string | null;
-  filesize?: number | null;
-  width?: number | null;
-  height?: number | null;
-  focalX?: number | null;
-  focalY?: number | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
-  id: string;
+  id: number;
   key: string;
   data:
     | {
@@ -183,20 +365,36 @@ export interface PayloadKv {
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
-  id: string;
+  id: number;
   document?:
     | ({
-        relationTo: 'users';
-        value: string | User;
+        relationTo: 'cours';
+        value: number | Cours;
+      } | null)
+    | ({
+        relationTo: 'actualites';
+        value: number | Actualite;
+      } | null)
+    | ({
+        relationTo: 'galerie-photos';
+        value: number | GaleriePhoto;
       } | null)
     | ({
         relationTo: 'media';
-        value: string | Media;
+        value: number | Media;
+      } | null)
+    | ({
+        relationTo: 'messages-contact';
+        value: number | MessageContact;
+      } | null)
+    | ({
+        relationTo: 'users';
+        value: number | User;
       } | null);
   globalSlug?: string | null;
   user: {
     relationTo: 'users';
-    value: string | User;
+    value: number | User;
   };
   updatedAt: string;
   createdAt: string;
@@ -206,10 +404,10 @@ export interface PayloadLockedDocument {
  * via the `definition` "payload-preferences".
  */
 export interface PayloadPreference {
-  id: string;
+  id: number;
   user: {
     relationTo: 'users';
-    value: string | User;
+    value: number | User;
   };
   key?: string | null;
   value?:
@@ -229,7 +427,7 @@ export interface PayloadPreference {
  * via the `definition` "payload-migrations".
  */
 export interface PayloadMigration {
-  id: string;
+  id: number;
   name?: string | null;
   batch?: number | null;
   updatedAt: string;
@@ -237,25 +435,62 @@ export interface PayloadMigration {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "users_select".
+ * via the `definition` "cours_select".
  */
-export interface UsersSelect<T extends boolean = true> {
-  updatedAt?: T;
-  createdAt?: T;
-  email?: T;
-  resetPasswordToken?: T;
-  resetPasswordExpiration?: T;
-  salt?: T;
-  hash?: T;
-  loginAttempts?: T;
-  lockUntil?: T;
-  sessions?:
+export interface CoursSelect<T extends boolean = true> {
+  nom?: T;
+  intervenant?: T;
+  organisme?: T;
+  telephone?: T;
+  siteWeb?: T;
+  description?: T;
+  creneaux?:
     | T
     | {
+        jour?: T;
+        debut?: T;
+        fin?: T;
+        niveau?: T;
         id?: T;
-        createdAt?: T;
-        expiresAt?: T;
       };
+  image?: T;
+  couleur?: T;
+  ordre?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "actualites_select".
+ */
+export interface ActualitesSelect<T extends boolean = true> {
+  titre?: T;
+  date?: T;
+  publie?: T;
+  slug?: T;
+  image?: T;
+  resume?: T;
+  contenu?: T;
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "galerie-photos_select".
+ */
+export interface GaleriePhotosSelect<T extends boolean = true> {
+  image?: T;
+  legende?: T;
+  ordre?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -274,6 +509,86 @@ export interface MediaSelect<T extends boolean = true> {
   height?: T;
   focalX?: T;
   focalY?: T;
+  sizes?:
+    | T
+    | {
+        miniature?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+        carte?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+        large?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+        og?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "messages-contact_select".
+ */
+export interface MessagesContactSelect<T extends boolean = true> {
+  nom?: T;
+  email?: T;
+  telephone?: T;
+  message?: T;
+  lu?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "users_select".
+ */
+export interface UsersSelect<T extends boolean = true> {
+  nom?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  email?: T;
+  resetPasswordToken?: T;
+  resetPasswordExpiration?: T;
+  salt?: T;
+  hash?: T;
+  loginAttempts?: T;
+  lockUntil?: T;
+  sessions?:
+    | T
+    | {
+        id?: T;
+        createdAt?: T;
+        expiresAt?: T;
+      };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -314,6 +629,658 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "accueil".
+ */
+export interface Accueil {
+  id: number;
+  bandeau: {
+    /**
+     * En très grand. Ex. « Music Dance Roller ».
+     */
+    titre: string;
+    /**
+     * Ex. « La patinoire roller couverte de La Rochelle ».
+     */
+    sousTitre: string;
+    /**
+     * Deux phrases maximum.
+     */
+    accroche?: string | null;
+    photo?: (number | null) | Media;
+    boutonSecondaire?: {
+      texte?: string | null;
+      lien?: string | null;
+    };
+  };
+  presentation: {
+    titre: string;
+    texte?: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
+  };
+  /**
+   * Roller libre, cours, anniversaires : trois panneaux sur l’accueil.
+   */
+  univers?:
+    | {
+        titre: string;
+        texte: string;
+        chiffre?: string | null;
+        chiffreLegende?: string | null;
+        lienTexte: string;
+        lien: string;
+        photo?: (number | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  privatisation?: {
+    titre?: string | null;
+    texte?: string | null;
+  };
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (number | null) | Media;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "patinoire".
+ */
+export interface Patinoire {
+  id: number;
+  titre: string;
+  intro?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  photo?: (number | null) | Media;
+  chiffres?:
+    | {
+        valeur: string;
+        legende: string;
+        id?: string | null;
+      }[]
+    | null;
+  equipements?:
+    | {
+        titre: string;
+        texte?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  regles?:
+    | {
+        texte: string;
+        id?: string | null;
+      }[]
+    | null;
+  reglement?: (number | null) | Media;
+  tarifsTitre?: string | null;
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (number | null) | Media;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Le texte d’introduction. Les cours eux-mêmes se gèrent dans Contenu → Cours.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "page-cours".
+ */
+export interface PageCours {
+  id: number;
+  titre: string;
+  saison?: string | null;
+  intro?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  photo?: (number | null) | Media;
+  note?: string | null;
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (number | null) | Media;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "anniversaires".
+ */
+export interface Anniversaires {
+  id: number;
+  titre: string;
+  intro?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  photo?: (number | null) | Media;
+  formules?:
+    | {
+        nom: string;
+        creneau?: string | null;
+        prix: number;
+        inclus?:
+          | {
+              texte: string;
+              id?: string | null;
+            }[]
+          | null;
+        note?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  acompte?: number | null;
+  conditions?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  carteInvitation?: (number | null) | Media;
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (number | null) | Media;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "acces".
+ */
+export interface Acces {
+  id: number;
+  titre: string;
+  intro?: string | null;
+  itineraires?:
+    | {
+        depuis: string;
+        instructions: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Sur Google Maps : Partager → Intégrer une carte → copier uniquement l’adresse qui commence par https://www.google.com/maps/embed.
+   */
+  carteEmbed?: string | null;
+  photo?: (number | null) | Media;
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (number | null) | Media;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact".
+ */
+export interface Contact {
+  id: number;
+  titre: string;
+  intro?: string | null;
+  messageSucces?: string | null;
+  photo?: (number | null) | Media;
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (number | null) | Media;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "mentions-legales".
+ */
+export interface MentionsLegales {
+  id: number;
+  titre: string;
+  contenu?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Horaires, tarifs, adresse, téléphones : ces informations s’affichent sur toutes les pages.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "infos-pratiques".
+ */
+export interface InfosPratiques {
+  id: number;
+  /**
+   * Un créneau par ligne. Heures au format 14:00. Sert aussi à afficher « Ouvert en ce moment » sur le site.
+   */
+  horaires?:
+    | {
+        jour: 'lundi' | 'mardi' | 'mercredi' | 'jeudi' | 'vendredi' | 'samedi' | 'dimanche';
+        ouverture: string;
+        fermeture: string;
+        precision?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Ex. « Ouvert tous les après-midis pendant les vacances scolaires ».
+   */
+  mentionVacances?: string | null;
+  /**
+   * Ex. « Mercredi 14h30–16h30, uniquement avec la carte d’abonnement ».
+   */
+  seancesPrivees?: string | null;
+  /**
+   * Un message court affiché en haut du site (fermeture exceptionnelle, soirée spéciale, horaires de vacances).
+   */
+  annonce?: {
+    active?: boolean | null;
+    texte?: string | null;
+  };
+  /**
+   * Le premier tarif s’affiche en grand sur l’accueil.
+   */
+  tarifs?:
+    | {
+        libelle: string;
+        prix: number;
+        precision?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  tarifsNote?: string | null;
+  nom: string;
+  nomSite: string;
+  telephone: string;
+  telephoneMobile?: string | null;
+  email?: string | null;
+  adresse: {
+    rue: string;
+    complement?: string | null;
+    codePostal: string;
+    ville: string;
+    latitude?: number | null;
+    longitude?: number | null;
+    lienItineraire?: string | null;
+  };
+  reseaux?: {
+    facebook?: string | null;
+    instagram?: string | null;
+  };
+  logo?: (number | null) | Media;
+  raisonSociale?: string | null;
+  siret?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "accueil_select".
+ */
+export interface AccueilSelect<T extends boolean = true> {
+  bandeau?:
+    | T
+    | {
+        titre?: T;
+        sousTitre?: T;
+        accroche?: T;
+        photo?: T;
+        boutonSecondaire?:
+          | T
+          | {
+              texte?: T;
+              lien?: T;
+            };
+      };
+  presentation?:
+    | T
+    | {
+        titre?: T;
+        texte?: T;
+      };
+  univers?:
+    | T
+    | {
+        titre?: T;
+        texte?: T;
+        chiffre?: T;
+        chiffreLegende?: T;
+        lienTexte?: T;
+        lien?: T;
+        photo?: T;
+        id?: T;
+      };
+  privatisation?:
+    | T
+    | {
+        titre?: T;
+        texte?: T;
+      };
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "patinoire_select".
+ */
+export interface PatinoireSelect<T extends boolean = true> {
+  titre?: T;
+  intro?: T;
+  photo?: T;
+  chiffres?:
+    | T
+    | {
+        valeur?: T;
+        legende?: T;
+        id?: T;
+      };
+  equipements?:
+    | T
+    | {
+        titre?: T;
+        texte?: T;
+        id?: T;
+      };
+  regles?:
+    | T
+    | {
+        texte?: T;
+        id?: T;
+      };
+  reglement?: T;
+  tarifsTitre?: T;
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "page-cours_select".
+ */
+export interface PageCoursSelect<T extends boolean = true> {
+  titre?: T;
+  saison?: T;
+  intro?: T;
+  photo?: T;
+  note?: T;
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "anniversaires_select".
+ */
+export interface AnniversairesSelect<T extends boolean = true> {
+  titre?: T;
+  intro?: T;
+  photo?: T;
+  formules?:
+    | T
+    | {
+        nom?: T;
+        creneau?: T;
+        prix?: T;
+        inclus?:
+          | T
+          | {
+              texte?: T;
+              id?: T;
+            };
+        note?: T;
+        id?: T;
+      };
+  acompte?: T;
+  conditions?: T;
+  carteInvitation?: T;
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "acces_select".
+ */
+export interface AccesSelect<T extends boolean = true> {
+  titre?: T;
+  intro?: T;
+  itineraires?:
+    | T
+    | {
+        depuis?: T;
+        instructions?: T;
+        id?: T;
+      };
+  carteEmbed?: T;
+  photo?: T;
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact_select".
+ */
+export interface ContactSelect<T extends boolean = true> {
+  titre?: T;
+  intro?: T;
+  messageSucces?: T;
+  photo?: T;
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "mentions-legales_select".
+ */
+export interface MentionsLegalesSelect<T extends boolean = true> {
+  titre?: T;
+  contenu?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "infos-pratiques_select".
+ */
+export interface InfosPratiquesSelect<T extends boolean = true> {
+  horaires?:
+    | T
+    | {
+        jour?: T;
+        ouverture?: T;
+        fermeture?: T;
+        precision?: T;
+        id?: T;
+      };
+  mentionVacances?: T;
+  seancesPrivees?: T;
+  annonce?:
+    | T
+    | {
+        active?: T;
+        texte?: T;
+      };
+  tarifs?:
+    | T
+    | {
+        libelle?: T;
+        prix?: T;
+        precision?: T;
+        id?: T;
+      };
+  tarifsNote?: T;
+  nom?: T;
+  nomSite?: T;
+  telephone?: T;
+  telephoneMobile?: T;
+  email?: T;
+  adresse?:
+    | T
+    | {
+        rue?: T;
+        complement?: T;
+        codePostal?: T;
+        ville?: T;
+        latitude?: T;
+        longitude?: T;
+        lienItineraire?: T;
+      };
+  reseaux?:
+    | T
+    | {
+        facebook?: T;
+        instagram?: T;
+      };
+  logo?: T;
+  raisonSociale?: T;
+  siret?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

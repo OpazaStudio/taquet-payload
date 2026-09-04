@@ -1,67 +1,84 @@
-# Payload Blank Template
+# Au Taquet · Music Dance Roller
 
-This template comes configured with the bare minimum to get started on anything you need.
+Site vitrine de la patinoire roller couverte **Au Taquet** (Aytré, La Rochelle), en remplacement de musicdanceroller.com.
 
-## Quick start
+- **Payload CMS 3** dans **Next.js** (App Router) : une seule application, l'admin est sur `/admin`.
+- Pages statiques régénérées à chaque enregistrement dans l'admin (hooks `afterChange` → `revalidatePath`).
+- **Aperçu en direct** (Live Preview) sur chaque page : le gérant modifie un texte à gauche et voit le site changer à droite.
+- Postgres (Neon sur Vercel, Homebrew en local), images sur Vercel Blob en prod.
+- Tailwind v4, polices auto-hébergées (Unbounded, Bricolage Grotesque).
 
-This template can be deployed directly from our Cloud hosting and it will setup MongoDB and cloud S3 object storage for media.
+Conception et décisions : `docs/superpowers/specs/2026-09-02-au-taquet-site-design.md`, `PRODUCT.md`, `DESIGN.md`.
 
-## Quick Start - local setup
+## Démarrer en local
 
-To spin up this template locally, follow these steps:
+Prérequis : Node 22, pnpm 11, Postgres.
 
-### Clone
+```bash
+createdb taquet_payload
+cp .env.example .env        # puis renseigner DATABASE_URL, PAYLOAD_SECRET, PREVIEW_SECRET
+pnpm install
+pnpm payload migrate        # crée les tables
+pnpm seed                   # contenu réel de l'ancien site, photos, cours, galerie, compte admin
+pnpm dev                    # http://localhost:3000 (site) et /admin
+```
 
-After you click the `Deploy` button above, you'll want to have standalone copy of this repo on your machine. If you've already cloned this repo, skip to [Development](#development).
+Le seed crée un compte admin `admin@musicdanceroller.com` / `autaquet-2026` (modifiable par `SEED_ADMIN_EMAIL` / `SEED_ADMIN_PASSWORD`). **À changer dès la première connexion.** Le seed est idempotent : il ne recrée ni les médias, ni les cours, ni les photos déjà présents, mais réécrit les textes des pages.
 
-### Development
+## Ce que le gérant peut modifier dans `/admin`
 
-1. First [clone the repo](#clone) if you have not done so already
-2. `cd my-project && cp .env.example .env` to copy the example environment variables. You'll need to add the `MONGODB_URL` from your Cloud project to your `.env` if you want to use S3 storage and the MongoDB database that was created for you.
+| Rubrique | Contenu |
+|---|---|
+| Pages → Accueil, La patinoire, Cours (page), Anniversaires, Accès, Contact, Mentions légales | Tous les textes, photos, PDF et champs SEO de chaque page, avec aperçu en direct. |
+| Réglages → Infos pratiques | Horaires d'ouverture (ils pilotent le « Ouvert jusqu'à 20h » du site), tarifs, adresse, téléphones, réseaux, annonce du moment, logo. |
+| Contenu → Cours | Un cours par intervenant : créneaux, niveau, téléphone, site. Alimente le planning de la semaine. |
+| Contenu → Actualités | Événements et soirées ; apparaissent sur l'accueil quand elles sont publiées. |
+| Contenu → Galerie photos | Les photos de la page Galerie ; les premières sont sur l'accueil. |
+| Contenu → Images et fichiers | Les photos et PDF. Chaque image a une description (obligatoire, bonne pour Google). |
+| Administration → Messages reçus | Les demandes envoyées depuis le formulaire de contact. |
 
-3. `pnpm install && pnpm dev` to install dependencies and start the dev server
-4. open `http://localhost:3000` to open the app in your browser
+## Déployer sur Vercel
 
-That's it! Changes made in `./src` will be reflected in your app. Follow the on-screen instructions to login and create your first admin user. Then check out [Production](#production) once you're ready to build and serve your app, and [Deployment](#deployment) when you're ready to go live.
+1. Pousser le dépôt sur GitHub et l'importer sur Vercel (framework : Next.js, build par défaut : `pnpm build`, qui joue les migrations puis construit le site).
+2. Onglet **Storage** → **Neon** (Postgres, offre gratuite) : Vercel injecte `DATABASE_URL`.
+3. Onglet **Storage** → **Blob** : Vercel injecte `BLOB_READ_WRITE_TOKEN` (les images passent alors sur Blob).
+4. Variables d'environnement à ajouter : `PAYLOAD_SECRET` (`openssl rand -hex 24`), `PREVIEW_SECRET`, `NEXT_PUBLIC_SERVER_URL` = `https://musicdanceroller.com`. Facultatif : `RESEND_API_KEY` + `CONTACT_TO_EMAIL` pour recevoir les messages du formulaire par e-mail (sinon ils sont seulement dans l'admin).
+5. Déployer. Puis, en local, pointer `DATABASE_URL` et `BLOB_READ_WRITE_TOKEN` sur les valeurs de prod et lancer `pnpm seed` une fois pour remplir la base (le seed téléverse les photos sur Blob).
+6. Rattacher le domaine `musicdanceroller.com` sur Vercel. Les anciennes URL `.php` sont redirigées en 301 (`redirects.ts`).
 
-#### Docker (Optional)
+Point d'attention : l'offre **Hobby** de Vercel est réservée à un usage non commercial dans ses conditions. Techniquement tout fonctionne en gratuit ; le respect des CGU (Pro à 20 $/mois) est un choix à faire.
 
-If you prefer to use Docker for local development instead of a local MongoDB instance, the provided docker-compose.yml file can be used.
+## Scripts
 
-To do so, follow these steps:
+| Commande | Rôle |
+|---|---|
+| `pnpm dev` | Serveur de développement |
+| `pnpm build` | `payload migrate` puis `next build` |
+| `pnpm seed` | Remplit la base avec le contenu de départ |
+| `pnpm migrate:create` | Crée une migration après un changement de champs dans `src/collections` ou `src/globals` (le schéma n'est jamais poussé à chaud : après un changement de champs, lancer `pnpm migrate:create` puis `pnpm payload migrate`, en local comme en prod via le build) |
+| `pnpm generate:types` | Régénère `src/payload-types.ts` |
+| `pnpm generate:importmap` | Régénère la carte d'import de l'admin (après ajout d'un plugin) |
 
-- Modify the `MONGODB_URL` in your `.env` file to `mongodb://127.0.0.1/<dbname>`
-- Modify the `docker-compose.yml` file's `MONGODB_URL` to match the above `<dbname>`
-- Run `docker-compose up` to start the database, optionally pass `-d` to run in the background.
+## SEO
 
-## How it works
+- Titres et descriptions par page (champs SEO dans l'admin, replis dans le code), canonical, Open Graph, `lang="fr"`.
+- Données structurées `SportsActivityLocation` + `LocalBusiness` (adresse, géolocalisation, horaires, téléphone, réseaux) dans le layout, `NewsArticle` + `BreadcrumbList` sur les actualités.
+- `sitemap.xml` et `robots.txt` générés (`src/app/(frontend)/sitemap.ts`, `robots.ts`).
+- Redirections 301 des dix anciennes pages PHP.
+- Mots-clés portés par les titres et les H1 : « Music Dance Roller », « patinoire roller », « La Rochelle », « Aytré ».
 
-The Payload config is tailored specifically to the needs of most websites. It is pre-configured in the following ways:
+## Structure
 
-### Collections
-
-See the [Collections](https://payloadcms.com/docs/configuration/collections) docs for details on how to extend this functionality.
-
-- #### Users (Authentication)
-
-  Users are auth-enabled collections that have access to the admin panel.
-
-  For additional help, see the official [Auth Example](https://github.com/payloadcms/payload/tree/3.x/examples/auth) or the [Authentication](https://payloadcms.com/docs/authentication/overview#authentication-overview) docs.
-
-- #### Media
-
-  This is the uploads enabled collection. It features pre-configured sizes, focal point and manual resizing to help you manage your pictures.
-
-### Docker
-
-Alternatively, you can use [Docker](https://www.docker.com) to spin up this template locally. To do so, follow these steps:
-
-1. Follow [steps 1 and 2 from above](#development), the docker-compose file will automatically use the `.env` file in your project root
-1. Next run `docker-compose up`
-1. Follow [steps 4 and 5 from above](#development) to login and create your first admin user
-
-That's it! The Docker instance will help you get up and running quickly while also standardizing the development environment across your teams.
-
-## Questions
-
-If you have any issues or questions, reach out to us on [Discord](https://discord.com/invite/payload) or start a [GitHub discussion](https://github.com/payloadcms/payload/discussions).
+```
+src/
+  payload.config.ts      # config Payload (admin en français, plugins SEO et Blob)
+  collections/           # cours, actualités, galerie, médias, messages, utilisateurs
+  globals/               # une entrée par page + infos pratiques
+  hooks/revalidate.ts    # régénération des pages statiques
+  migrations/            # migrations Postgres
+  app/(frontend)/        # les pages du site (page.tsx = données + SEO, *View.tsx = rendu + live preview)
+  app/(payload)/         # admin et API Payload (générés)
+  components/            # boule à facettes, disques de lumière, tuiles, planning, etc.
+  lib/                   # horaires, formats, SEO, géométrie de la boule
+seed/                    # contenu et photos de départ
+```
