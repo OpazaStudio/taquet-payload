@@ -28,7 +28,10 @@ export const Media: CollectionConfig = {
   ],
   upload: {
     staticDir: path.resolve(dirname, '../../public/media'),
-    adminThumbnail: 'miniature',
+    adminThumbnail: ({ doc }) => {
+      const d = doc as { url?: string; sizes?: { miniature?: { url?: string } } }
+      return d.sizes?.miniature?.url || d.url || null
+    },
     focalPoint: true,
     mimeTypes: ['image/*', 'application/pdf'],
     imageSizes: [

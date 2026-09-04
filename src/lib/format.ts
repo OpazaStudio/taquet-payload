@@ -1,5 +1,5 @@
-export const telHref = (phone: string): string => {
-  const digits = phone.replace(/\D/g, '')
+export const telHref = (phone?: string | null): string => {
+  const digits = (phone ?? '').replace(/\D/g, '')
   const intl = digits.startsWith('0') ? `+33${digits.slice(1)}` : `+${digits}`
   return `tel:${intl}`
 }

@@ -20,10 +20,12 @@ cp .env.example .env        # puis renseigner DATABASE_URL, PAYLOAD_SECRET, PREV
 pnpm install
 pnpm payload migrate        # crée les tables
 pnpm seed                   # contenu réel de l'ancien site, photos, cours, galerie, compte admin
-pnpm dev                    # http://localhost:3000 (site) et /admin
+pnpm dev                    # http://localhost:3100 (site) et /admin
 ```
 
-Le seed crée un compte admin `admin@musicdanceroller.com` / `autaquet-2026` (modifiable par `SEED_ADMIN_EMAIL` / `SEED_ADMIN_PASSWORD`). **À changer dès la première connexion.** Le seed est idempotent : il ne recrée ni les médias, ni les cours, ni les photos déjà présents, mais réécrit les textes des pages.
+Le seed crée un compte admin `admin@musicdanceroller.com` / `autaquet-2026` (modifiable par `SEED_ADMIN_EMAIL` / `SEED_ADMIN_PASSWORD`). **À changer dès la première connexion.** Le seed est idempotent : il ne recrée ni les médias, ni les cours, ni les photos déjà présents, mais réécrit les textes des pages. `pnpm seed:reset` vide médias, cours, actualités et galerie (et leurs fichiers sur Blob) pour repartir de zéro ; le compte admin et les textes des pages sont conservés.
+
+Le port de dev est 3100 (le 3000 est pris par un autre projet). Avant de seeder, `public/media` doit être vide : Payload y vérifie l'existence des fichiers et suffixe les noms (`logo-2.jpg`) s'il en trouve.
 
 ## Ce que le gérant peut modifier dans `/admin`
 
@@ -41,7 +43,7 @@ Le seed crée un compte admin `admin@musicdanceroller.com` / `autaquet-2026` (mo
 
 1. Pousser le dépôt sur GitHub et l'importer sur Vercel (framework : Next.js, build par défaut : `pnpm build`, qui joue les migrations puis construit le site).
 2. Onglet **Storage** → **Neon** (Postgres, offre gratuite) : Vercel injecte `DATABASE_URL`.
-3. Onglet **Storage** → **Blob** : Vercel injecte `BLOB_READ_WRITE_TOKEN` (les images passent alors sur Blob).
+3. Onglet **Storage** → **Blob**, accès **Public** obligatoire (un store Private refuse les envois du plugin) : Vercel injecte `BLOB_READ_WRITE_TOKEN` et les images sont servies directement depuis `*.public.blob.vercel-storage.com`.
 4. Variables d'environnement à ajouter : `PAYLOAD_SECRET` (`openssl rand -hex 24`), `PREVIEW_SECRET`, `NEXT_PUBLIC_SERVER_URL` = `https://musicdanceroller.com`. Facultatif : `RESEND_API_KEY` + `CONTACT_TO_EMAIL` pour recevoir les messages du formulaire par e-mail (sinon ils sont seulement dans l'admin).
 5. Déployer. Puis, en local, pointer `DATABASE_URL` et `BLOB_READ_WRITE_TOKEN` sur les valeurs de prod et lancer `pnpm seed` une fois pour remplir la base (le seed téléverse les photos sur Blob).
 6. Rattacher le domaine `musicdanceroller.com` sur Vercel. Les anciennes URL `.php` sont redirigées en 301 (`redirects.ts`).
@@ -55,6 +57,7 @@ Point d'attention : l'offre **Hobby** de Vercel est réservée à un usage non c
 | `pnpm dev` | Serveur de développement |
 | `pnpm build` | `payload migrate` puis `next build` |
 | `pnpm seed` | Remplit la base avec le contenu de départ |
+| `pnpm seed:reset` | Vide médias, cours, actualités, galerie et leurs fichiers Blob |
 | `pnpm migrate:create` | Crée une migration après un changement de champs dans `src/collections` ou `src/globals` (le schéma n'est jamais poussé à chaud : après un changement de champs, lancer `pnpm migrate:create` puis `pnpm payload migrate`, en local comme en prod via le build) |
 | `pnpm generate:types` | Régénère `src/payload-types.ts` |
 | `pnpm generate:importmap` | Régénère la carte d'import de l'admin (après ajout d'un plugin) |
