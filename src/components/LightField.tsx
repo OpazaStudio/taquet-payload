@@ -1,17 +1,18 @@
 'use client'
 import { useEffect, useRef } from 'react'
-import { FACET_DEEP_HEX, FACET_HEX, type Facet } from '@/lib/nav'
+import { clientPalette } from '@/lib/couleurs'
+import type { Facet } from '@/lib/nav'
 
 type Props = { tint?: 'all' | Facet; variant?: 'home' | 'page'; speed?: number; className?: string }
 
 type Spot = { r: number; phi: number; ring: number; color: string; alpha: number; phase: number; tilt: number }
 
-const PALETTE: Record<'all' | Facet, string[]> = {
-  all: [FACET_HEX.fuchsia, FACET_HEX.aqua, FACET_HEX.mandarine, FACET_HEX.fuchsia, FACET_HEX.aqua, '#ffffff'],
-  fuchsia: [FACET_HEX.fuchsia, FACET_HEX.fuchsia, FACET_DEEP_HEX.fuchsia, FACET_HEX.mandarine, '#ffffff'],
-  mandarine: [FACET_HEX.mandarine, FACET_HEX.mandarine, FACET_DEEP_HEX.mandarine, FACET_HEX.fuchsia, '#ffffff'],
-  aqua: [FACET_HEX.aqua, FACET_HEX.aqua, FACET_DEEP_HEX.aqua, FACET_HEX.fuchsia, '#ffffff'],
-  blanc: [FACET_HEX.aqua, FACET_HEX.fuchsia, FACET_HEX.mandarine, '#ffffff'],
+const paletteFor = (tint: 'all' | Facet): string[] => {
+  const p = clientPalette()
+  const f = p.fuchsia.hex, m = p.mandarine.hex, a = p.aqua.hex
+  if (tint === 'all') return [f, a, m, f, a, '#ffffff']
+  if (tint === 'blanc') return [a, f, m, '#ffffff']
+  return [p[tint].hex, p[tint].hex, p[tint].deep, tint === 'fuchsia' ? m : f, '#ffffff']
 }
 
 const hash = (n: number) => {
@@ -34,7 +35,7 @@ export function LightField({ tint = 'all', variant = 'page', speed = 0.12, class
     const ctx = canvas.getContext('2d')
     if (!ctx) return
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    const palette = PALETTE[tint]
+    const palette = paletteFor(tint)
     let W = 0, H = 0, dpr = 1, cx = 0, cy = 0, rmax = 1
     let spots: Spot[] = []
 

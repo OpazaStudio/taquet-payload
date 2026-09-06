@@ -71,7 +71,7 @@ export interface Config {
     actualites: Actualite;
     'galerie-photos': GaleriePhoto;
     media: Media;
-    'messages-contact': MessageContact;
+    visites: Visite;
     users: User;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
@@ -84,7 +84,7 @@ export interface Config {
     actualites: ActualitesSelect<false> | ActualitesSelect<true>;
     'galerie-photos': GaleriePhotosSelect<false> | GaleriePhotosSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
-    'messages-contact': MessagesContactSelect<false> | MessagesContactSelect<true>;
+    visites: VisitesSelect<false> | VisitesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -104,6 +104,7 @@ export interface Config {
     contact: Contact;
     'mentions-legales': MentionsLegales;
     'infos-pratiques': InfosPratiques;
+    apparence: Apparence;
   };
   globalsSelect: {
     accueil: AccueilSelect<false> | AccueilSelect<true>;
@@ -114,6 +115,7 @@ export interface Config {
     contact: ContactSelect<false> | ContactSelect<true>;
     'mentions-legales': MentionsLegalesSelect<false> | MentionsLegalesSelect<true>;
     'infos-pratiques': InfosPratiquesSelect<false> | InfosPratiquesSelect<true>;
+    apparence: ApparenceSelect<false> | ApparenceSelect<true>;
   };
   locale: null;
   widgets: {
@@ -300,18 +302,15 @@ export interface GaleriePhoto {
   createdAt: string;
 }
 /**
- * Les demandes envoyées depuis le formulaire de contact du site.
- *
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "messages-contact".
+ * via the `definition` "visites".
  */
-export interface MessageContact {
+export interface Visite {
   id: number;
-  nom: string;
-  email: string;
-  telephone?: string | null;
-  message: string;
-  lu?: boolean | null;
+  jour: string;
+  chemin: string;
+  visiteur: string;
+  vues: number;
   updatedAt: string;
   createdAt: string;
 }
@@ -384,8 +383,8 @@ export interface PayloadLockedDocument {
         value: number | Media;
       } | null)
     | ({
-        relationTo: 'messages-contact';
-        value: number | MessageContact;
+        relationTo: 'visites';
+        value: number | Visite;
       } | null)
     | ({
         relationTo: 'users';
@@ -556,14 +555,13 @@ export interface MediaSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "messages-contact_select".
+ * via the `definition` "visites_select".
  */
-export interface MessagesContactSelect<T extends boolean = true> {
-  nom?: T;
-  email?: T;
-  telephone?: T;
-  message?: T;
-  lu?: T;
+export interface VisitesSelect<T extends boolean = true> {
+  jour?: T;
+  chemin?: T;
+  visiteur?: T;
+  vues?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -902,7 +900,13 @@ export interface Contact {
   id: number;
   titre: string;
   intro?: string | null;
-  messageSucces?: string | null;
+  /**
+   * Les liens Facebook et Instagram se règlent dans Réglages → Infos pratiques.
+   */
+  reseaux?: {
+    titre?: string | null;
+    texte?: string | null;
+  };
   photo?: (number | null) | Media;
   meta?: {
     title?: string | null;
@@ -1008,6 +1012,39 @@ export interface InfosPratiques {
   logo?: (number | null) | Media;
   raisonSociale?: string | null;
   siret?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * La couleur de chaque page et les trois couleurs de la palette du site.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "apparence".
+ */
+export interface Apparence {
+  id: number;
+  /**
+   * La couleur choisie colore le titre de la page dans le menu, le bouton d’appel, les tuiles et les reflets de la boule à facettes.
+   */
+  pages: {
+    accueil: 'fuchsia' | 'mandarine' | 'aqua';
+    patinoire: 'fuchsia' | 'mandarine' | 'aqua';
+    cours: 'fuchsia' | 'mandarine' | 'aqua';
+    anniversaires: 'fuchsia' | 'mandarine' | 'aqua';
+    acces: 'fuchsia' | 'mandarine' | 'aqua';
+    contact: 'fuchsia' | 'mandarine' | 'aqua';
+    actualites: 'fuchsia' | 'mandarine' | 'aqua';
+    galerie: 'fuchsia' | 'mandarine' | 'aqua';
+    mentionsLegales: 'fuchsia' | 'mandarine' | 'aqua';
+  };
+  /**
+   * Les trois couleurs du site. Le texte posé dessus est toujours noir : préférez des teintes vives et claires.
+   */
+  palette: {
+    fuchsia: string;
+    mandarine: string;
+    aqua: string;
+  };
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1198,7 +1235,12 @@ export interface AccesSelect<T extends boolean = true> {
 export interface ContactSelect<T extends boolean = true> {
   titre?: T;
   intro?: T;
-  messageSucces?: T;
+  reseaux?:
+    | T
+    | {
+        titre?: T;
+        texte?: T;
+      };
   photo?: T;
   meta?:
     | T
@@ -1278,6 +1320,35 @@ export interface InfosPratiquesSelect<T extends boolean = true> {
   logo?: T;
   raisonSociale?: T;
   siret?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "apparence_select".
+ */
+export interface ApparenceSelect<T extends boolean = true> {
+  pages?:
+    | T
+    | {
+        accueil?: T;
+        patinoire?: T;
+        cours?: T;
+        anniversaires?: T;
+        acces?: T;
+        contact?: T;
+        actualites?: T;
+        galerie?: T;
+        mentionsLegales?: T;
+      };
+  palette?:
+    | T
+    | {
+        fuchsia?: T;
+        mandarine?: T;
+        aqua?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

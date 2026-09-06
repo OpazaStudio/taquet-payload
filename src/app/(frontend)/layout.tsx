@@ -1,13 +1,16 @@
 import type { Metadata } from 'next'
 import type { ReactNode } from 'react'
+import { ApparenceLive } from '@/components/ApparenceLive'
 import { Footer } from '@/components/Footer'
 import { Header } from '@/components/Header'
 import { JsonLd } from '@/components/JsonLd'
+import { Visite } from '@/components/Visite'
 import { bricolage, unbounded } from '@/lib/fonts'
 import { toSchemaHours } from '@/lib/hours'
 import { mediaUrl } from '@/lib/media'
-import { FACET_INIT_SCRIPT } from '@/lib/nav'
-import { getInfos } from '@/lib/payload'
+import { pageFacetFrom, paletteFrom, paletteStyle } from '@/lib/couleurs'
+import { facetInitScript } from '@/lib/nav'
+import { getApparence, getInfos } from '@/lib/payload'
 import { SITE } from '@/lib/seo'
 import { getServerSideURL } from '@/utilities/getURL'
 import './globals.css'
@@ -24,7 +27,7 @@ export const metadata: Metadata = {
 }
 
 export default async function RootLayout({ children }: { children: ReactNode }) {
-  const infos = await getInfos()
+  const [infos, apparence] = await Promise.all([getInfos(), getApparence()])
   const base = getServerSideURL()
   const logo = mediaUrl(infos.logo)
   const jsonLd = {
@@ -56,9 +59,11 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
   }
 
   return (
-    <html lang="fr" className={`${unbounded.variable} ${bricolage.variable}`} data-scroll-behavior="smooth" suppressHydrationWarning>
+    <html lang="fr" className={`${unbounded.variable} ${bricolage.variable}`} style={paletteStyle(paletteFrom(apparence))} data-scroll-behavior="smooth" suppressHydrationWarning>
       <body className="flex min-h-dvh flex-col">
-        <script dangerouslySetInnerHTML={{ __html: FACET_INIT_SCRIPT }} />
+        <script dangerouslySetInnerHTML={{ __html: facetInitScript(pageFacetFrom(apparence)) }} />
+        <ApparenceLive apparence={apparence} />
+        <Visite />
         <JsonLd data={jsonLd} />
         <Header infos={infos} />
         <main className="flex-1">{children}</main>

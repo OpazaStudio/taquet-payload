@@ -7,3 +7,30 @@ html[data-theme='dark'] {
   --theme-elevation-100: #1b1b25;
 }
 .nav__link--active, .nav__link:hover { color: #ff3fa4 !important; }
+
+.stats {
+  margin-bottom: calc(var(--base) * 2);
+  &__titre { margin: 0 0 0.25rem; font-size: 1.5rem; }
+  &__note { margin: 0 0 var(--base); color: var(--theme-elevation-600); font-size: 0.875rem; }
+  &__tuiles { display: grid; gap: var(--base); grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  &__tuile { display: flex; flex-direction: column; padding: var(--base); background: var(--theme-elevation-50); border: 1px solid var(--theme-elevation-100); }
+  &__tuile-l { font-size: 0.8125rem; color: var(--theme-elevation-600); }
+  &__tuile-v { margin-top: 0.25rem; font-size: 2.25rem; font-weight: 700; line-height: 1; color: #ff3fa4; }
+  &__tuile-s { margin-top: 0.5rem; font-size: 0.8125rem; color: var(--theme-elevation-700); }
+  &__grille { display: grid; gap: var(--base); margin-top: var(--base); grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); }
+  &__graph { margin: 0; padding: var(--base); background: var(--theme-elevation-50); border: 1px solid var(--theme-elevation-100); }
+  &__graph figcaption, &__pages h3 { margin: 0 0 0.75rem; font-size: 0.9375rem; font-weight: 600; }
+  &__graph svg { display: block; width: 100%; height: auto; }
+  &__barre { fill: #35e3ff; }
+  &__barre--auj { fill: #ff3fa4; }
+  &__axe { fill: var(--theme-elevation-600); font-size: 11px; }
+  &__pages { padding: var(--base); background: var(--theme-elevation-50); border: 1px solid var(--theme-elevation-100); }
+  &__pages table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+  &__pages th, &__pages td { padding: 0.375rem 0; text-align: left; border-bottom: 1px solid var(--theme-elevation-100); }
+  &__pages th:not(:first-child), &__pages td:not(:first-child) { text-align: right; font-variant-numeric: tabular-nums; }
+  &__vide { margin: 0; color: var(--theme-elevation-600); font-size: 0.875rem; }
+  &__contenu { margin: var(--base) 0 0; font-size: 0.875rem; color: var(--theme-elevation-700); }
+  @media (max-width: 900px) {
+    &__tuiles, &__grille { grid-template-columns: minmax(0, 1fr); }
+  }
+}

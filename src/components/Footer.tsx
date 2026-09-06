@@ -1,19 +1,25 @@
 import Link from 'next/link'
-import { Facebook, Instagram } from 'lucide-react'
 import type { InfosPratiques } from '@/payload-types'
 import { fmt, groupByDay, JOUR_LABEL } from '@/lib/hours'
 import { telHref } from '@/lib/format'
+import { isMedia } from '@/lib/media'
 import { NAV } from '@/lib/nav'
+import { Img } from './Img'
+import { ReseauxTiles } from './ReseauxTiles'
 
 export function Footer({ infos }: { infos: InfosPratiques }) {
   const jours = groupByDay(infos.horaires ?? [])
+  const logo = isMedia(infos.logo) ? infos.logo : null
   return (
     <footer className="border-t joint bg-chrome-950">
       <div className="mx-auto max-w-[1440px] px-4 pt-16 pb-8 sm:px-6">
-        <p className="font-display-tight text-balance text-[clamp(2.5rem,7vw,5.5rem)] font-black uppercase text-mirror">
-          {infos.nom}
-          <span className="block text-[0.32em] font-medium normal-case tracking-normal text-chrome-300">{infos.nomSite} · patinoire roller couverte, La Rochelle</span>
-        </p>
+        <div className="flex flex-wrap items-end gap-6">
+          {logo && <Img media={logo} alt="" className="h-24 w-auto sm:h-32" sizes="240px" />}
+          <p className="font-display-tight text-balance text-[clamp(2.5rem,7vw,5.5rem)] font-black uppercase text-mirror">
+            {infos.nom}
+            <span className="block text-[0.32em] font-medium normal-case tracking-normal text-chrome-300">{infos.nomSite} · patinoire roller couverte, La Rochelle</span>
+          </p>
+        </div>
 
         <div className="mt-12 grid gap-px bg-chrome-700 sm:grid-cols-2 lg:grid-cols-4">
           <div className="bg-chrome-950 p-6">
@@ -48,15 +54,8 @@ export function Footer({ infos }: { infos: InfosPratiques }) {
             {infos.mentionVacances && <p className="mt-3 text-[0.9375rem] text-chrome-300">{infos.mentionVacances}</p>}
           </div>
           <div className="bg-chrome-950 p-6">
-            <h2 className="font-display text-[0.9375rem] font-bold text-mirror">Suivez-nous</h2>
-            <ul className="mt-3 space-y-2">
-              {infos.reseaux?.facebook && (
-                <li><a href={infos.reseaux.facebook} target="_blank" rel="noopener" className="inline-flex items-center gap-2 hover:text-[var(--facet)]"><Facebook className="size-4" aria-hidden="true" />Facebook « Au Taquet »</a></li>
-              )}
-              {infos.reseaux?.instagram && (
-                <li><a href={infos.reseaux.instagram} target="_blank" rel="noopener" className="inline-flex items-center gap-2 hover:text-[var(--facet)]"><Instagram className="size-4" aria-hidden="true" />Instagram « musicdanceroller »</a></li>
-              )}
-            </ul>
+            <h2 className="font-display text-[0.9375rem] font-bold text-mirror">Suivez-nous, écrivez-nous</h2>
+            <div className="mt-3 grid gap-px bg-chrome-700"><ReseauxTiles infos={infos} variant="compact" /></div>
             <nav aria-label="Pages" className="mt-6">
               <ul className="flex flex-wrap gap-x-4 gap-y-1 text-[0.9375rem]">
                 {NAV.map((n) => <li key={n.href}><Link href={n.href} className="hover:text-[var(--facet)]">{n.label}</Link></li>)}

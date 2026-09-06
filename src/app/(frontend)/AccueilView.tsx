@@ -9,6 +9,7 @@ import { OpeningState } from '@/components/OpeningState'
 import { PhoneTile } from '@/components/PhoneTile'
 import { PhotoMosaic } from '@/components/PhotoMosaic'
 import { Planning } from '@/components/Planning'
+import { ReseauxTiles } from '@/components/ReseauxTiles'
 import { RichText } from '@/components/RichText'
 import { dateLongue, euros, telHref } from '@/lib/format'
 import { useLiveDoc } from '@/lib/useLiveDoc'
@@ -111,6 +112,14 @@ export function AccueilView({ accueil: initialAccueil, infos: initialInfos, cour
           </ul>
         </section>
       ) : null}
+
+      {(infos.reseaux?.facebook || infos.reseaux?.instagram) && (
+        <section className="mx-auto max-w-[1440px] px-4 pt-20 sm:px-6 lg:pt-32">
+          <h2 className="font-display text-[clamp(1.75rem,3.5vw,2.5rem)] font-black text-mirror">Suivez-nous, écrivez-nous</h2>
+          <p className="mt-3 max-w-[60ch] text-chrome-100">Soirées, photos, horaires des vacances : tout passe d’abord par nos réseaux. Une question ? Envoyez-nous un message, on répond vite.</p>
+          <ReseauxTiles infos={infos} className="mt-8" />
+        </section>
+      )}
 
       <section className="mx-auto max-w-[1440px] px-4 py-20 sm:px-6 lg:py-32">
         <div className="flex flex-wrap items-end justify-between gap-4">

@@ -7,15 +7,16 @@ import { PhoneTile } from '@/components/PhoneTile'
 import { RichText } from '@/components/RichText'
 import { euros } from '@/lib/format'
 import { mediaUrl } from '@/lib/media'
+import type { FacetCouleur } from '@/lib/nav'
 import { useLiveDoc } from '@/lib/useLiveDoc'
 
-export function AnniversairesView({ page: initial, infos }: { page: Anniversaires; infos: InfosPratiques }) {
+export function AnniversairesView({ page: initial, infos, facet }: { page: Anniversaires; infos: InfosPratiques; facet: FacetCouleur }) {
   const page = useLiveDoc(initial, { globalSlug: 'anniversaires' }, 2)
   const carte = mediaUrl(page.carteInvitation)
 
   return (
     <>
-      <PageHero titre={page.titre} facet="fuchsia" aside={<PhoneTile telephone={infos.telephone} label="Réserver une table" compact />}>
+      <PageHero titre={page.titre} facet={facet} aside={<PhoneTile telephone={infos.telephone} label="Réserver une table" compact />}>
         <RichText data={page.intro} />
       </PageHero>
 

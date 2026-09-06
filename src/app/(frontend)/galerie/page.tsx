@@ -1,7 +1,9 @@
 import type { Metadata } from 'next'
 import { Img } from '@/components/Img'
 import { PageHero } from '@/components/PageHero'
-import { getPayloadClient } from '@/lib/payload'
+import { pageFacetFrom } from '@/lib/couleurs'
+import { facetFor } from '@/lib/nav'
+import { getApparence, getPayloadClient } from '@/lib/payload'
 import { buildMetadata } from '@/lib/seo'
 
 export const dynamic = 'force-static'
@@ -13,10 +15,10 @@ const SPANS = ['sm:col-span-2 sm:row-span-2', '', '', '', 'sm:col-span-2', '', '
 
 export default async function Page() {
   const payload = await getPayloadClient()
-  const photos = await payload.find({ collection: 'galerie-photos', sort: 'ordre', limit: 200, depth: 1 })
+  const [photos, apparence] = await Promise.all([payload.find({ collection: 'galerie-photos', sort: 'ordre', limit: 200, depth: 1 }), getApparence()])
   return (
     <>
-      <PageHero titre="La salle en photos" facet="aqua">
+      <PageHero titre="La salle en photos" facet={facetFor('/galerie', pageFacetFrom(apparence))}>
         <p>La piste, la boule, les cours, les soirées. Pour le reste, il faut venir.</p>
       </PageHero>
       <section className="mx-auto max-w-[1440px] px-4 py-20 sm:px-6 lg:py-32">

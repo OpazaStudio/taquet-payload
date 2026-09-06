@@ -1,6 +1,7 @@
 'use client'
 import { useEffect, useMemo, useRef } from 'react'
 import { facets, lightsFor } from '@/lib/ball'
+import { clientPalette, hexToRgb } from '@/lib/couleurs'
 
 type Props = {
   size?: number
@@ -14,8 +15,7 @@ export function DiscoBall({ size = 720, tint = 'all', className = '', speed = 0.
   const wrapRef = useRef<HTMLDivElement>(null)
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const svgRef = useRef<SVGSVGElement>(null)
-  const lights = useMemo(() => lightsFor(tint), [tint])
-  const initial = useMemo(() => facets(0.4, lights, 18), [lights])
+  const initial = useMemo(() => facets(0.4, lightsFor(tint), 18), [tint])
 
   useEffect(() => {
     const wrap = wrapRef.current
@@ -24,6 +24,8 @@ export function DiscoBall({ size = 720, tint = 'all', className = '', speed = 0.
     if (!wrap || !canvas || !svg) return
     const ctx = canvas.getContext('2d')
     if (!ctx) return
+    const p = clientPalette()
+    const lights = lightsFor(tint, { fuchsia: hexToRgb(p.fuchsia.hex), mandarine: hexToRgb(p.mandarine.hex), aqua: hexToRgb(p.aqua.hex) })
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     const dpr = Math.min(2, window.devicePixelRatio || 1)
     const displayed = Math.min(size, wrap.clientWidth || size)
@@ -63,7 +65,7 @@ export function DiscoBall({ size = 720, tint = 'all', className = '', speed = 0.
     io.observe(canvas)
     raf = requestAnimationFrame(loop)
     return () => { cancelAnimationFrame(raf); io.disconnect() }
-  }, [lights, size, speed, drive])
+  }, [tint, size, speed, drive])
 
   return (
     <div ref={wrapRef} data-ball className={`relative aspect-square ${className}`} style={{ width: 'var(--ball, 720px)' }} aria-hidden="true">

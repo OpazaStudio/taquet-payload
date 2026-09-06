@@ -12,7 +12,16 @@ export const Contact: GlobalConfig = {
   fields: [
     { name: 'titre', label: 'Titre', type: 'text', required: true },
     { name: 'intro', label: 'Introduction', type: 'textarea' },
-    { name: 'messageSucces', label: 'Message après envoi', type: 'text', defaultValue: 'Merci, votre message est bien arrivé. Nous vous répondons au plus vite.' },
+    {
+      name: 'reseaux',
+      label: 'Écrire sur les réseaux',
+      type: 'group',
+      admin: { description: 'Les liens Facebook et Instagram se règlent dans Réglages → Infos pratiques.' },
+      fields: [
+        { name: 'titre', label: 'Titre', type: 'text', defaultValue: 'Écrivez-nous sur les réseaux' },
+        { name: 'texte', label: 'Texte', type: 'textarea', defaultValue: 'Une question, une réservation d’anniversaire, une privatisation ? Envoyez-nous un message sur Facebook ou Instagram : nous répondons rapidement.' },
+      ],
+    },
     { name: 'photo', label: 'Photo', type: 'upload', relationTo: 'media' },
   ],
 }

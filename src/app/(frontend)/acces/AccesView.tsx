@@ -4,9 +4,10 @@ import type { Acces, InfosPratiques } from '@/payload-types'
 import { Img } from '@/components/Img'
 import { MapFrame } from '@/components/MapFrame'
 import { PageHero } from '@/components/PageHero'
+import type { FacetCouleur } from '@/lib/nav'
 import { useLiveDoc } from '@/lib/useLiveDoc'
 
-export function AccesView({ page: initial, infos: initialInfos }: { page: Acces; infos: InfosPratiques }) {
+export function AccesView({ page: initial, infos: initialInfos, facet }: { page: Acces; infos: InfosPratiques; facet: FacetCouleur }) {
   const page = useLiveDoc(initial, { globalSlug: 'acces' }, 2)
   const infos = useLiveDoc(initialInfos, { globalSlug: 'infos-pratiques' }, 1)
   const { latitude: lat, longitude: lon } = infos.adresse
@@ -15,7 +16,7 @@ export function AccesView({ page: initial, infos: initialInfos }: { page: Acces;
 
   return (
     <>
-      <PageHero titre={page.titre} facet="aqua">
+      <PageHero titre={page.titre} facet={facet}>
         {page.intro && <p>{page.intro}</p>}
       </PageHero>
 

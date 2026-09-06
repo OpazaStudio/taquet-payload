@@ -292,12 +292,15 @@ export const ACCES = {
 
 export const CONTACT = {
   titre: 'Contactez-nous',
-  intro: 'Une question, une réservation d’anniversaire, une privatisation ? Le plus simple est d’appeler. Sinon, écrivez-nous ici et nous vous répondons rapidement.',
-  messageSucces: 'Merci, votre message est bien arrivé. Nous vous répondons au plus vite.',
+  intro: 'Une question, une réservation d’anniversaire, une privatisation ? Le plus simple est d’appeler. Sinon, écrivez-nous sur Facebook ou Instagram et nous vous répondons rapidement.',
+  reseaux: {
+    titre: 'Écrivez-nous sur les réseaux',
+    texte: 'Un message sur la page Facebook ou en privé sur Instagram, et on vous répond vite. C’est aussi là que nous annonçons les soirées et les horaires de vacances.',
+  },
   photo: 'location',
   meta: {
     title: 'Contact · Au Taquet, patinoire roller La Rochelle',
-    description: 'Contactez la patinoire roller Au Taquet à Aytré (La Rochelle) : téléphone 05 46 31 17 72, formulaire de contact, réservation d’anniversaires et privatisation.',
+    description: 'Contactez la patinoire roller Au Taquet à Aytré (La Rochelle) : téléphone 05 46 31 17 72, Facebook, Instagram, réservation d’anniversaires et privatisation.',
   },
 }
 
@@ -310,8 +313,8 @@ export const MENTIONS = {
     '## Hébergement',
     'Ce site est hébergé par Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, États-Unis.',
     '## Données personnelles',
-    'La consultation du site est possible sans révéler votre identité. Les informations envoyées par le formulaire de contact (nom, e-mail, téléphone, message) sont destinées uniquement à « Au Taquet » pour répondre à votre demande ; elles ne sont jamais transmises à des tiers. Conformément au règlement général sur la protection des données et à la loi Informatique et Libertés, vous disposez d’un droit d’accès, de rectification et de suppression de vos données, que vous pouvez exercer par téléphone ou par courrier à l’adresse ci-dessus.',
-    'Ce site ne dépose aucun cookie de suivi.',
+    'La consultation du site est possible sans révéler votre identité. Si vous nous écrivez par téléphone ou sur les réseaux sociaux, vos messages sont destinés uniquement à « Au Taquet » pour répondre à votre demande ; ils ne sont jamais transmis à des tiers. Conformément au règlement général sur la protection des données et à la loi Informatique et Libertés, vous disposez d’un droit d’accès, de rectification et de suppression de vos données, que vous pouvez exercer par téléphone ou par courrier à l’adresse ci-dessus.',
+    'Ce site ne dépose aucun cookie. Sa fréquentation est mesurée de façon anonyme : chaque visite est comptée à partir d’une empreinte technique renouvelée chaque jour, qui ne permet ni de vous identifier ni de vous suivre d’un jour à l’autre, et rien n’est transmis à des tiers.',
     '## Propriété intellectuelle',
     'Les textes, photographies et éléments graphiques de ce site sont la propriété de « Au Taquet » ou de tiers l’ayant autorisé à les utiliser, et sont protégés par le droit d’auteur.',
     '## Liens',

@@ -8,8 +8,10 @@ export const NAV = [
 ] as const
 
 export type Facet = 'fuchsia' | 'mandarine' | 'aqua' | 'blanc'
+export type FacetCouleur = Exclude<Facet, 'blanc'>
+export type PageFacetMap = Record<string, FacetCouleur>
 
-export const PAGE_FACET: Record<string, Facet> = {
+export const PAGE_FACET: PageFacetMap = {
   '/': 'fuchsia',
   '/patinoire-roller-la-rochelle': 'aqua',
   '/cours': 'mandarine',
@@ -21,10 +23,11 @@ export const PAGE_FACET: Record<string, Facet> = {
   '/mentions-legales': 'aqua',
 }
 
-export const facetFor = (pathname: string): Facet =>
-  PAGE_FACET[pathname] ?? PAGE_FACET[Object.keys(PAGE_FACET).find((k) => k !== '/' && pathname.startsWith(k)) ?? '/']
+export const facetFor = (pathname: string, map: PageFacetMap = PAGE_FACET): FacetCouleur =>
+  map[pathname] ?? map[Object.keys(map).find((k) => k !== '/' && pathname.startsWith(k)) ?? '/'] ?? 'fuchsia'
 
-export const FACET_INIT_SCRIPT = `(function(){var m=${JSON.stringify(PAGE_FACET)},p=location.pathname,f=m[p];if(!f){for(var k in m){if(k!=='/'&&p.indexOf(k)===0){f=m[k];break}}}f=f||'fuchsia';var s=document.documentElement.style;s.setProperty('--facet','var(--color-'+(f==='blanc'?'mirror':f)+')');s.setProperty('--facet-deep','var(--color-'+(f==='blanc'?'chrome-300':f+'-deep')+')')})()`
+export const facetInitScript = (map: PageFacetMap) =>
+  `(function(){var m=${JSON.stringify(map)},p=location.pathname,f=m[p];if(!f){for(var k in m){if(k!=='/'&&p.indexOf(k)===0){f=m[k];break}}}f=f||'fuchsia';var s=document.documentElement.style;s.setProperty('--facet','var(--color-'+f+')');s.setProperty('--facet-deep','var(--color-'+f+'-deep)')})()`
 
 export const FACET_HEX: Record<Facet, string> = {
   fuchsia: '#ff3fa4',

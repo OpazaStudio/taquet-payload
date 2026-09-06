@@ -11,3 +11,5 @@ export const getGlobal = cache(async <T extends GlobalSlug>(slug: T, depth = 2):
 })
 
 export const getInfos = () => getGlobal('infos-pratiques', 1)
+
+export const getApparence = () => getGlobal('apparence', 0)

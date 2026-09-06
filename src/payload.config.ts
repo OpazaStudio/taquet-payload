@@ -13,7 +13,7 @@ import { Media } from './collections/Media'
 import { Cours } from './collections/Cours'
 import { Actualites } from './collections/Actualites'
 import { GaleriePhotos } from './collections/GaleriePhotos'
-import { MessagesContact } from './collections/MessagesContact'
+import { Visites } from './collections/Visites'
 import { InfosPratiques } from './globals/InfosPratiques'
 import { Accueil } from './globals/Accueil'
 import { Patinoire } from './globals/Patinoire'
@@ -22,6 +22,7 @@ import { Anniversaires } from './globals/Anniversaires'
 import { Acces } from './globals/Acces'
 import { Contact } from './globals/Contact'
 import { MentionsLegales } from './globals/MentionsLegales'
+import { Apparence } from './globals/Apparence'
 import { getServerSideURL } from './utilities/getURL'
 
 const filename = fileURLToPath(import.meta.url)
@@ -37,6 +38,7 @@ export default buildConfig({
       titleSuffix: ' · Au Taquet',
       description: 'Administration du site musicdanceroller.com',
     },
+    components: { beforeDashboard: ['/components/admin/Statistiques#Statistiques'] },
     livePreview: {
       breakpoints: [
         { label: 'Téléphone', name: 'mobile', width: 390, height: 844 },
@@ -49,8 +51,8 @@ export default buildConfig({
     supportedLanguages: { fr },
     fallbackLanguage: 'fr',
   },
-  collections: [Cours, Actualites, GaleriePhotos, Media, MessagesContact, Users],
-  globals: [Accueil, Patinoire, PageCours, Anniversaires, Acces, Contact, MentionsLegales, InfosPratiques],
+  collections: [Cours, Actualites, GaleriePhotos, Media, Visites, Users],
+  globals: [Accueil, Patinoire, PageCours, Anniversaires, Acces, Contact, MentionsLegales, InfosPratiques, Apparence],
   editor: lexicalEditor({
     features: ({ defaultFeatures }) => [
       ...defaultFeatures.filter((f) => !['upload', 'relationship', 'blockquote', 'horizontalRule', 'indent', 'align', 'checklist'].includes(f.key)),

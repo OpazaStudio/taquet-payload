@@ -7,16 +7,16 @@ import { Planning } from '@/components/Planning'
 import { RichText } from '@/components/RichText'
 import { telHref } from '@/lib/format'
 import { fmt, JOUR_LABEL } from '@/lib/hours'
-import { FACET_TILE_CLASS, type Facet } from '@/lib/nav'
+import { FACET_TILE_CLASS, type Facet, type FacetCouleur } from '@/lib/nav'
 import { useLiveDoc } from '@/lib/useLiveDoc'
 
-export function CoursView({ page: initial, infos, cours: initialCours }: { page: PageCours; infos: InfosPratiques; cours: Cours[] }) {
+export function CoursView({ page: initial, infos, cours: initialCours, facet }: { page: PageCours; infos: InfosPratiques; cours: Cours[]; facet: FacetCouleur }) {
   const page = useLiveDoc(initial, { globalSlug: 'page-cours' }, 2)
   const cours = initialCours
 
   return (
     <>
-      <PageHero titre={page.titre} facet="mandarine" aside={page.saison ? <p className="tile tile-mandarine tile-ink inline-block px-5 py-3 font-display text-[1rem] font-bold">{page.saison}</p> : undefined}>
+      <PageHero titre={page.titre} facet={facet} aside={page.saison ? <p className="tile tile-mandarine tile-ink inline-block px-5 py-3 font-display text-[1rem] font-bold">{page.saison}</p> : undefined}>
         <RichText data={page.intro} />
       </PageHero>
 
@@ -29,12 +29,12 @@ export function CoursView({ page: initial, infos, cours: initialCours }: { page:
       <section>
         <div className="mx-auto max-w-[1440px] px-4 py-20 sm:px-6 lg:py-32">
           <h2 className="font-display text-[clamp(1.75rem,3.5vw,2.5rem)] font-black text-mirror">Les cours et leurs intervenants</h2>
-          <ul className="mt-8 grid gap-px bg-chrome-700 md:grid-cols-2">
+          <ul className="mt-8 grid gap-px bg-chrome-700 lg:grid-cols-2">
             {cours.map((c) => {
               const tile = FACET_TILE_CLASS[(c.couleur ?? 'mandarine') as Facet]
               const tels = (c.telephone ?? '').split('/').map((t) => t.trim()).filter(Boolean)
               return (
-                <li key={c.id} id={`cours-${c.id}`} className="flex flex-col bg-chrome-950 sm:flex-row">
+                <li key={c.id} id={`cours-${c.id}`} className="flex min-w-0 flex-col bg-chrome-950 sm:flex-row">
                   <div className={`tile ${tile} tile-ink flex w-full shrink-0 flex-col sm:w-64`}>
                     {c.image && <div className="relative aspect-[4/3]"><Img media={c.image} fill sizes="(min-width:640px) 256px, 100vw" /></div>}
                     <div className="flex flex-1 flex-col justify-between p-5">

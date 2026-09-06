@@ -3,7 +3,9 @@ import Link from 'next/link'
 import { Img } from '@/components/Img'
 import { PageHero } from '@/components/PageHero'
 import { dateLongue } from '@/lib/format'
-import { getPayloadClient } from '@/lib/payload'
+import { pageFacetFrom } from '@/lib/couleurs'
+import { facetFor } from '@/lib/nav'
+import { getApparence, getPayloadClient } from '@/lib/payload'
 import { buildMetadata } from '@/lib/seo'
 
 export const dynamic = 'force-static'
@@ -13,10 +15,10 @@ export const metadata: Metadata = buildMetadata({ title: 'Actualités', descript
 
 export default async function Page() {
   const payload = await getPayloadClient()
-  const actus = await payload.find({ collection: 'actualites', where: { publie: { equals: true } }, sort: '-date', limit: 100, depth: 1 })
+  const [actus, apparence] = await Promise.all([payload.find({ collection: 'actualites', where: { publie: { equals: true } }, sort: '-date', limit: 100, depth: 1 }), getApparence()])
   return (
     <>
-      <PageHero titre="Actualités" facet="mandarine">
+      <PageHero titre="Actualités" facet={facetFor('/actualites', pageFacetFrom(apparence))}>
         <p>Soirées à thème, événements, fermetures exceptionnelles : tout ce qui se passe à la patinoire.</p>
       </PageHero>
       <section className="mx-auto max-w-[1440px] px-4 py-20 sm:px-6 lg:py-32">

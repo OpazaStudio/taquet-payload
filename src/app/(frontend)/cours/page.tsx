@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
-import { getGlobal, getInfos, getPayloadClient } from '@/lib/payload'
+import { pageFacetFrom } from '@/lib/couleurs'
+import { facetFor } from '@/lib/nav'
+import { getApparence, getGlobal, getInfos, getPayloadClient } from '@/lib/payload'
 import { buildMetadata } from '@/lib/seo'
 import { CoursView } from './CoursView'
 
@@ -13,6 +15,6 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function Page() {
   const payload = await getPayloadClient()
-  const [page, infos, cours] = await Promise.all([getGlobal('page-cours'), getInfos(), payload.find({ collection: 'cours', sort: 'ordre', limit: 50, depth: 1 })])
-  return <CoursView page={page} infos={infos} cours={cours.docs} />
+  const [page, infos, cours, apparence] = await Promise.all([getGlobal('page-cours'), getInfos(), payload.find({ collection: 'cours', sort: 'ordre', limit: 50, depth: 1 }), getApparence()])
+  return <CoursView page={page} infos={infos} cours={cours.docs} facet={facetFor('/cours', pageFacetFrom(apparence))} />
 }

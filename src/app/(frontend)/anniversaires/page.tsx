@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
-import { getGlobal, getInfos } from '@/lib/payload'
+import { pageFacetFrom } from '@/lib/couleurs'
+import { facetFor } from '@/lib/nav'
+import { getApparence, getGlobal, getInfos } from '@/lib/payload'
 import { buildMetadata } from '@/lib/seo'
 import { AnniversairesView } from './AnniversairesView'
 
@@ -12,6 +14,6 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Page() {
-  const [page, infos] = await Promise.all([getGlobal('anniversaires'), getInfos()])
-  return <AnniversairesView page={page} infos={infos} />
+  const [page, infos, apparence] = await Promise.all([getGlobal('anniversaires'), getInfos(), getApparence()])
+  return <AnniversairesView page={page} infos={infos} facet={facetFor('/anniversaires', pageFacetFrom(apparence))} />
 }

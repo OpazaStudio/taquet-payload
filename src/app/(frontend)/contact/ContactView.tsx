@@ -1,40 +1,55 @@
 'use client'
-import { Facebook, Instagram, Mail } from 'lucide-react'
+import { Mail, MapPin, Phone } from 'lucide-react'
 import type { Contact, InfosPratiques } from '@/payload-types'
 import { Img } from '@/components/Img'
 import { PageHero } from '@/components/PageHero'
 import { PhoneTile } from '@/components/PhoneTile'
+import { ReseauxTiles } from '@/components/ReseauxTiles'
 import { telHref } from '@/lib/format'
-import { ContactForm } from './ContactForm'
+import type { FacetCouleur } from '@/lib/nav'
 import { useLiveDoc } from '@/lib/useLiveDoc'
 
-export function ContactView({ page: initial, infos }: { page: Contact; infos: InfosPratiques }) {
+export function ContactView({ page: initial, infos: initialInfos, facet }: { page: Contact; infos: InfosPratiques; facet: FacetCouleur }) {
   const page = useLiveDoc(initial, { globalSlug: 'contact' }, 2)
+  const infos = useLiveDoc(initialInfos, { globalSlug: 'infos-pratiques' }, 1)
   return (
     <>
-      <PageHero titre={page.titre} facet="fuchsia" aside={<PhoneTile telephone={infos.telephone} label="Le plus rapide : appeler" compact />}>
+      <PageHero titre={page.titre} facet={facet} aside={<PhoneTile telephone={infos.telephone} label="Le plus rapide : appeler" compact />}>
         {page.intro && <p>{page.intro}</p>}
       </PageHero>
 
-      <section className="mx-auto grid max-w-[1440px] gap-10 px-4 py-20 sm:px-6 lg:grid-cols-12 lg:py-32">
-        <div className="relative lg:col-span-7">
-          <h2 className="font-display text-[clamp(1.75rem,3.5vw,2.5rem)] font-black text-mirror">Écrivez-nous</h2>
-          <div className="mt-6"><ContactForm messageSucces={page.messageSucces ?? 'Merci, votre message est bien arrivé.'} /></div>
-        </div>
-        <div className="grid content-start gap-px lg:col-span-5">
-          <div className="tile tile-chrome p-5 text-mirror">
-            <h2 className="font-display text-[0.9375rem] font-bold">Par téléphone</h2>
-            <p className="mt-2 text-[1.0625rem]">
-              <a href={telHref(infos.telephone)} className="font-display font-bold hover:text-[var(--facet)]">{infos.telephone}</a>
+      <section className="mx-auto max-w-[1440px] px-4 py-20 sm:px-6 lg:py-32">
+        <h2 className="font-display text-[clamp(1.75rem,3.5vw,2.5rem)] font-black text-mirror">{page.reseaux?.titre || 'Écrivez-nous sur les réseaux'}</h2>
+        {page.reseaux?.texte && <p className="mt-3 max-w-[60ch] text-[1.0625rem] text-chrome-100">{page.reseaux.texte}</p>}
+        <ReseauxTiles infos={infos} className="mt-8" />
+
+        <div className="mt-px grid gap-px bg-chrome-700 lg:grid-cols-12">
+          <div className="tile tile-chrome p-5 text-mirror lg:col-span-4">
+            <h3 className="flex items-center gap-2 font-display text-[0.9375rem] font-bold"><Phone className="size-4" strokeWidth={2.5} aria-hidden="true" />Par téléphone</h3>
+            <p className="mt-3 text-[1.0625rem]">
+              <a href={telHref(infos.telephone)} className="font-display text-[1.25rem] font-bold hover:text-[var(--facet)]">{infos.telephone}</a>
               {infos.telephoneMobile && <><br /><a href={telHref(infos.telephoneMobile)} className="hover:text-[var(--facet)]">{infos.telephoneMobile}</a></>}
             </p>
           </div>
           {infos.email && (
-            <a href={`mailto:${infos.email}`} className="tile tile-lit tile-chrome flex items-center gap-3 p-5 text-mirror"><Mail className="size-5" aria-hidden="true" />{infos.email}</a>
+            <a href={`mailto:${infos.email}`} className="tile tile-lit tile-chrome flex flex-col p-5 text-mirror lg:col-span-4">
+              <span className="flex items-center gap-2 font-display text-[0.9375rem] font-bold"><Mail className="size-4" strokeWidth={2.5} aria-hidden="true" />Par e-mail</span>
+              <span className="mt-3 text-[1.0625rem] break-all">{infos.email}</span>
+            </a>
           )}
-          {infos.reseaux?.facebook && <a href={infos.reseaux.facebook} target="_blank" rel="noopener" className="tile tile-lit tile-chrome flex items-center gap-3 p-5 text-mirror"><Facebook className="size-5" aria-hidden="true" />Facebook « Au Taquet »</a>}
-          {infos.reseaux?.instagram && <a href={infos.reseaux.instagram} target="_blank" rel="noopener" className="tile tile-lit tile-chrome flex items-center gap-3 p-5 text-mirror"><Instagram className="size-5" aria-hidden="true" />Instagram « musicdanceroller »</a>}
-          <div className="tile relative mt-px aspect-[4/3] bg-chrome-900"><Img media={page.photo} fill sizes="(min-width:1024px) 40vw, 100vw" /></div>
+          <div className={`tile tile-chrome p-5 text-mirror ${infos.email ? 'lg:col-span-4' : 'lg:col-span-8'}`}>
+            <h3 className="flex items-center gap-2 font-display text-[0.9375rem] font-bold"><MapPin className="size-4" strokeWidth={2.5} aria-hidden="true" />Sur place</h3>
+            <address className="mt-3 not-italic text-[1.0625rem] text-chrome-100">
+              {infos.adresse.rue}{infos.adresse.complement && <>, {infos.adresse.complement}</>}<br />
+              {infos.adresse.codePostal} {infos.adresse.ville}
+            </address>
+            {infos.adresse.lienItineraire && (
+              <a href={infos.adresse.lienItineraire} target="_blank" rel="noopener" className="mt-3 inline-block underline decoration-[var(--facet)] decoration-2 underline-offset-4 hover:text-[var(--facet)]">Itinéraire</a>
+            )}
+          </div>
+          {page.photo && (
+            <div className="tile relative aspect-[21/9] bg-chrome-900 lg:col-span-12"><Img media={page.photo} fill sizes="(min-width:1440px) 1440px, 100vw" /></div>
+          )}
         </div>
       </section>
     </>

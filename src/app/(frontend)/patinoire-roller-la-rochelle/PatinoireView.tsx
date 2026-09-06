@@ -9,9 +9,10 @@ import { RichText } from '@/components/RichText'
 import { Tarifs } from '@/components/Tarifs'
 import { fmt, groupByDay, JOUR_LABEL } from '@/lib/hours'
 import { mediaUrl } from '@/lib/media'
+import type { FacetCouleur } from '@/lib/nav'
 import { useLiveDoc } from '@/lib/useLiveDoc'
 
-export function PatinoireView({ page: initial, infos: initialInfos }: { page: Patinoire; infos: InfosPratiques }) {
+export function PatinoireView({ page: initial, infos: initialInfos, facet }: { page: Patinoire; infos: InfosPratiques; facet: FacetCouleur }) {
   const page = useLiveDoc(initial, { globalSlug: 'patinoire' }, 2)
   const infos = useLiveDoc(initialInfos, { globalSlug: 'infos-pratiques' }, 1)
   const jours = groupByDay(infos.horaires ?? [])
@@ -19,7 +20,7 @@ export function PatinoireView({ page: initial, infos: initialInfos }: { page: Pa
 
   return (
     <>
-      <PageHero titre={page.titre} facet="aqua">
+      <PageHero titre={page.titre} facet={facet}>
         <RichText data={page.intro} />
       </PageHero>
 
