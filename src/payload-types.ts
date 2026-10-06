@@ -981,6 +981,11 @@ export interface InfosPratiques {
   annonce?: {
     active?: boolean | null;
     texte?: string | null;
+    /**
+     * Choisissez une couleur du site ou une teinte libre.
+     */
+    fond?: string | null;
+    couleurTexte?: ('noir' | 'blanc') | null;
   };
   /**
    * Le premier tarif s’affiche en grand sur l’accueil.
@@ -1294,6 +1299,8 @@ export interface InfosPratiquesSelect<T extends boolean = true> {
     | {
         active?: T;
         texte?: T;
+        fond?: T;
+        couleurTexte?: T;
       };
   tarifs?:
     | T

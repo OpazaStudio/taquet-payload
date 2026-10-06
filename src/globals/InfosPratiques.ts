@@ -2,6 +2,7 @@ import type { GlobalConfig } from 'payload'
 import { anyone, authenticated } from '@/access'
 import { JOURS } from '@/collections/Cours'
 import { ALL_PATHS, revalidateGlobal } from '@/hooks/revalidate'
+import { HEX_RE } from '@/lib/couleurs'
 
 export const InfosPratiques: GlobalConfig = {
   slug: 'infos-pratiques',
@@ -49,6 +50,31 @@ export const InfosPratiques: GlobalConfig = {
               fields: [
                 { name: 'active', label: 'Afficher l’annonce', type: 'checkbox', defaultValue: false },
                 { name: 'texte', label: 'Texte', type: 'text', admin: { condition: (_, siblingData) => Boolean(siblingData?.active) } },
+                {
+                  type: 'row',
+                  admin: { condition: (_, siblingData) => Boolean(siblingData?.active) },
+                  fields: [
+                    {
+                      name: 'fond',
+                      label: 'Couleur du bandeau',
+                      type: 'text',
+                      defaultValue: '#ff3fa4',
+                      validate: (v: unknown) => (v == null || v === '' || (typeof v === 'string' && HEX_RE.test(v)) ? true : 'Couleur invalide (format #rrggbb).'),
+                      admin: { width: '50%', description: 'Choisissez une couleur du site ou une teinte libre.', components: { Field: { path: '/components/admin/ChampCouleur#ChampCouleur', clientProps: { palette: true } } } },
+                    },
+                    {
+                      name: 'couleurTexte',
+                      label: 'Couleur du texte',
+                      type: 'radio',
+                      defaultValue: 'noir',
+                      options: [
+                        { label: 'Noir', value: 'noir' },
+                        { label: 'Blanc', value: 'blanc' },
+                      ],
+                      admin: { width: '50%', layout: 'horizontal' },
+                    },
+                  ],
+                },
               ],
             },
           ],

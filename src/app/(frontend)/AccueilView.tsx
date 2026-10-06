@@ -44,7 +44,7 @@ export function AccueilView({ accueil: initialAccueil, infos: initialInfos, cour
         <div className="relative">
           <div className="mx-auto grid max-w-[1440px] grid-cols-2 sm:px-6 lg:grid-cols-4">
             <div className="tile tile-aqua tile-ink min-h-[10rem] p-5">
-              <OpeningState horaires={infos.horaires ?? []} annonce={infos.annonce?.active ? infos.annonce.texte : null} />
+              <OpeningState horaires={infos.horaires ?? []} />
             </div>
             <div className="tile tile-mirror flex min-h-[10rem] flex-col justify-between p-5">
               {tarif ? (

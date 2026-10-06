@@ -41,7 +41,7 @@ export function PatinoireView({ page: initial, infos: initialInfos, facet }: { p
         <div className="lg:col-span-7">
           <h2 className="font-display text-[clamp(1.75rem,3.5vw,2.5rem)] font-black text-mirror">Ouvert au public</h2>
           <div className="mt-6 grid gap-px bg-chrome-700 sm:grid-cols-2">
-            <div className="tile tile-aqua tile-ink p-5"><OpeningState horaires={infos.horaires ?? []} annonce={infos.annonce?.active ? infos.annonce.texte : null} /></div>
+            <div className="tile tile-aqua tile-ink p-5"><OpeningState horaires={infos.horaires ?? []} /></div>
             <dl className="tile tile-chrome p-5 text-mirror">
               {jours.map((d) => (
                 <div key={d.jour} className="flex justify-between gap-4 py-1">

@@ -2,9 +2,9 @@
 import { useEffect, useState } from 'react'
 import { fmt, fmtFin, getOpeningState, groupByDay, JOUR_LABEL, type Creneau, type OpeningState as State } from '@/lib/hours'
 
-type Props = { horaires: Creneau[]; annonce?: string | null; className?: string }
+type Props = { horaires: Creneau[]; className?: string }
 
-export function OpeningState({ horaires, annonce, className = '' }: Props) {
+export function OpeningState({ horaires, className = '' }: Props) {
   const [state, setState] = useState<State | null>(null)
 
   useEffect(() => {
@@ -31,14 +31,6 @@ export function OpeningState({ horaires, annonce, className = '' }: Props) {
       ))}
     </dl>
   )
-
-  if (annonce) {
-    return (
-      <div className={className}>
-        <span className="block font-display text-[1.375rem] leading-tight">{annonce}</span>
-      </div>
-    )
-  }
 
   if (!state) {
     return (
