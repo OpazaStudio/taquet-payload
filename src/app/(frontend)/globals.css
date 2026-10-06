@@ -85,6 +85,7 @@ a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 0.2em
 .tile-fuchsia { background: var(--color-fuchsia); color: var(--color-ink); }
 .tile-mandarine { background: var(--color-mandarine); color: var(--color-ink); }
 .tile-aqua { background: var(--color-aqua); color: var(--color-ink); }
+.tile-color { background: var(--tile-bg); color: var(--color-ink); }
 .tile-facet { background: var(--facet); color: var(--color-ink); }
 
 .tile-lit { transition: background-color 160ms var(--ease-out-expo), color 160ms var(--ease-out-expo); }

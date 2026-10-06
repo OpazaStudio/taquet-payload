@@ -5,7 +5,7 @@ import { clientPalette, hexToRgb } from '@/lib/couleurs'
 
 type Props = {
   size?: number
-  tint?: 'all' | 'fuchsia' | 'mandarine' | 'aqua'
+  tint?: string
   className?: string
   speed?: number
   drive?: boolean
@@ -24,8 +24,8 @@ export function DiscoBall({ size = 720, tint = 'all', className = '', speed = 0.
     if (!wrap || !canvas || !svg) return
     const ctx = canvas.getContext('2d')
     if (!ctx) return
-    const p = clientPalette()
-    const lights = lightsFor(tint, { fuchsia: hexToRgb(p.fuchsia.hex), mandarine: hexToRgb(p.mandarine.hex), aqua: hexToRgb(p.aqua.hex) })
+    const p = clientPalette(tint === 'all' ? [] : [tint])
+    const lights = lightsFor(tint, Object.fromEntries(Object.entries(p).map(([cle, c]) => [cle, hexToRgb(c.hex)])))
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     const dpr = Math.min(2, window.devicePixelRatio || 1)
     const displayed = Math.min(size, wrap.clientWidth || size)

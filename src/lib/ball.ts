@@ -12,13 +12,13 @@ export const AQUA: RGB = [53, 227, 255]
 export const SILVER: RGB = [236, 236, 244]
 export const WHITE: RGB = [255, 255, 255]
 
-export type BallPalette = { fuchsia: RGB; mandarine: RGB; aqua: RGB }
+export type BallPalette = Record<string, RGB>
 export const DEFAULT_BALL_PALETTE: BallPalette = { fuchsia: FUCHSIA, mandarine: MANDARINE, aqua: AQUA }
 
-export const lightsFor = (tint: 'all' | 'fuchsia' | 'mandarine' | 'aqua', p: BallPalette = DEFAULT_BALL_PALETTE): Light[] => {
+export const lightsFor = (tint: string, p: BallPalette = DEFAULT_BALL_PALETTE): Light[] => {
   const dirs: Array<[number, number, number]> = [norm([-0.55, -0.5, 0.68]), norm([0.72, -0.05, 0.69]), norm([-0.05, 0.78, 0.62])]
-  if (tint === 'all') return [{ color: p.fuchsia, dir: dirs[0] }, { color: p.mandarine, dir: dirs[1] }, { color: p.aqua, dir: dirs[2] }]
-  const c = p[tint]
+  if (tint === 'all') return [{ color: p.fuchsia ?? FUCHSIA, dir: dirs[0] }, { color: p.mandarine ?? MANDARINE, dir: dirs[1] }, { color: p.aqua ?? AQUA, dir: dirs[2] }]
+  const c = p[tint] ?? p.fuchsia ?? FUCHSIA
   return [{ color: c, dir: dirs[0] }, { color: SILVER, dir: dirs[1] }, { color: c, dir: dirs[2] }]
 }
 

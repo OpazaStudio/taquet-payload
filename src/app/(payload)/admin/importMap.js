@@ -1,3 +1,4 @@
+import { ChoixCouleur as ChoixCouleur_533e398ab149fcbf6d40601ed87f2b10 } from '../../../components/admin/ChoixCouleur'
 import { RscEntryLexicalCell as RscEntryLexicalCell_44fe37237e0ebf4470c9990d8cb7b07e } from '@payloadcms/richtext-lexical/rsc'
 import { RscEntryLexicalField as RscEntryLexicalField_44fe37237e0ebf4470c9990d8cb7b07e } from '@payloadcms/richtext-lexical/rsc'
 import { LexicalDiffComponent as LexicalDiffComponent_44fe37237e0ebf4470c9990d8cb7b07e } from '@payloadcms/richtext-lexical/rsc'
@@ -21,12 +22,14 @@ import { MetaDescriptionComponent as MetaDescriptionComponent_a8a977ebc872c5d5ea
 import { MetaImageComponent as MetaImageComponent_a8a977ebc872c5d5ea7ee689724c0860 } from '@payloadcms/plugin-seo/client'
 import { PreviewComponent as PreviewComponent_a8a977ebc872c5d5ea7ee689724c0860 } from '@payloadcms/plugin-seo/client'
 import { ChampCouleur as ChampCouleur_cfc9cf5fef26fd7fdc97633ce9dfb93d } from '../../../components/admin/ChampCouleur'
+import { LigneCouleur as LigneCouleur_b56c5d23466b7e999d0cfa201af53b22 } from '../../../components/admin/LigneCouleur'
 import { Statistiques as Statistiques_6aaa7e4425ffe3bb52ecc090d7f0ddb9 } from '../../../components/admin/Statistiques'
 import { VercelBlobClientUploadHandler as VercelBlobClientUploadHandler_16c82c5e25f430251a3e3ba57219ff4e } from '@payloadcms/storage-vercel-blob/client'
 import { CollectionCards as CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1 } from '@payloadcms/next/rsc'
 
 /** @type import('payload').ImportMap */
 export const importMap = {
+  "/components/admin/ChoixCouleur#ChoixCouleur": ChoixCouleur_533e398ab149fcbf6d40601ed87f2b10,
   "@payloadcms/richtext-lexical/rsc#RscEntryLexicalCell": RscEntryLexicalCell_44fe37237e0ebf4470c9990d8cb7b07e,
   "@payloadcms/richtext-lexical/rsc#RscEntryLexicalField": RscEntryLexicalField_44fe37237e0ebf4470c9990d8cb7b07e,
   "@payloadcms/richtext-lexical/rsc#LexicalDiffComponent": LexicalDiffComponent_44fe37237e0ebf4470c9990d8cb7b07e,
@@ -50,6 +53,7 @@ export const importMap = {
   "@payloadcms/plugin-seo/client#MetaImageComponent": MetaImageComponent_a8a977ebc872c5d5ea7ee689724c0860,
   "@payloadcms/plugin-seo/client#PreviewComponent": PreviewComponent_a8a977ebc872c5d5ea7ee689724c0860,
   "/components/admin/ChampCouleur#ChampCouleur": ChampCouleur_cfc9cf5fef26fd7fdc97633ce9dfb93d,
+  "/components/admin/LigneCouleur#LigneCouleur": LigneCouleur_b56c5d23466b7e999d0cfa201af53b22,
   "/components/admin/Statistiques#Statistiques": Statistiques_6aaa7e4425ffe3bb52ecc090d7f0ddb9,
   "@payloadcms/storage-vercel-blob/client#VercelBlobClientUploadHandler": VercelBlobClientUploadHandler_16c82c5e25f430251a3e3ba57219ff4e,
   "@payloadcms/next/rsc#CollectionCards": CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1

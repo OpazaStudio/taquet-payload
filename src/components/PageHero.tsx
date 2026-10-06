@@ -1,9 +1,8 @@
 import type { ReactNode } from 'react'
 import { DiscoBall } from './DiscoBall'
 import { LightField } from './LightField'
-import type { Facet } from '@/lib/nav'
 
-type Props = { titre: string; facet: Exclude<Facet, 'blanc'>; children?: ReactNode; aside?: ReactNode }
+type Props = { titre: string; facet: string; children?: ReactNode; aside?: ReactNode }
 
 export function PageHero({ titre, facet, children, aside }: Props) {
   return (

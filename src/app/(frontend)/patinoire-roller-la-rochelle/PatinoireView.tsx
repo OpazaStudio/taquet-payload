@@ -7,7 +7,7 @@ import { PageHero } from '@/components/PageHero'
 import { PhoneTile } from '@/components/PhoneTile'
 import { RichText } from '@/components/RichText'
 import { Tarifs } from '@/components/Tarifs'
-import { fmt, groupByDay, JOUR_LABEL } from '@/lib/hours'
+import { fmt, fmtFin, groupByDay, JOUR_LABEL } from '@/lib/hours'
 import { mediaUrl } from '@/lib/media'
 import type { FacetCouleur } from '@/lib/nav'
 import { useLiveDoc } from '@/lib/useLiveDoc'
@@ -47,7 +47,7 @@ export function PatinoireView({ page: initial, infos: initialInfos, facet }: { p
                 <div key={d.jour} className="flex justify-between gap-4 py-1">
                   <dt className="font-display text-[0.9375rem] font-bold">{JOUR_LABEL[d.jour]}</dt>
                   <dd className="text-right tabular-nums">
-                    {d.items.map((c, i) => <span key={i} className="block">{fmt(c.ouverture)}–{fmt(c.fermeture)}{c.precision && <span className="block text-[0.8125rem] text-chrome-300">{c.precision}</span>}</span>)}
+                    {d.items.map((c, i) => <span key={i} className="block">{fmt(c.ouverture)}–{fmtFin(c.fermeture)}{c.precision && <span className="block text-[0.8125rem] text-chrome-300">{c.precision}</span>}</span>)}
                   </dd>
                 </div>
               ))}

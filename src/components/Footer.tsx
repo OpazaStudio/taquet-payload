@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import type { InfosPratiques } from '@/payload-types'
-import { fmt, groupByDay, JOUR_LABEL } from '@/lib/hours'
+import { fmt, fmtFin, groupByDay, JOUR_LABEL } from '@/lib/hours'
 import { telHref } from '@/lib/format'
 import { isMedia } from '@/lib/media'
 import { NAV } from '@/lib/nav'
@@ -47,7 +47,7 @@ export function Footer({ infos }: { infos: InfosPratiques }) {
               {jours.map((d) => (
                 <div key={d.jour} className="contents">
                   <dt className="text-chrome-300">{JOUR_LABEL[d.jour]}</dt>
-                  <dd className="text-chrome-100">{d.items.map((c) => `${fmt(c.ouverture)}–${fmt(c.fermeture)}`).join(', ')}</dd>
+                  <dd className="text-chrome-100">{d.items.map((c) => `${fmt(c.ouverture)}–${fmtFin(c.fermeture)}`).join(', ')}</dd>
                 </div>
               ))}
             </dl>

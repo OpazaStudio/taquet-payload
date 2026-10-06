@@ -178,7 +178,10 @@ export interface Cours {
       }[]
     | null;
   image?: (number | null) | Media;
-  couleur?: ('fuchsia' | 'mandarine' | 'aqua' | 'blanc') | null;
+  /**
+   * Les couleurs se gèrent dans Réglages › Couleurs.
+   */
+  couleur?: string | null;
   ordre?: number | null;
   updatedAt: string;
   createdAt: string;
@@ -1016,7 +1019,7 @@ export interface InfosPratiques {
   createdAt?: string | null;
 }
 /**
- * La couleur de chaque page et les trois couleurs de la palette du site.
+ * La palette du site et la couleur de chaque page.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "apparence".
@@ -1024,27 +1027,33 @@ export interface InfosPratiques {
 export interface Apparence {
   id: number;
   /**
-   * La couleur choisie colore le titre de la page dans le menu, le bouton d’appel, les tuiles et les reflets de la boule à facettes.
+   * La couleur choisie colore le titre de la page dans le menu, le bouton d’appel, les tuiles et les reflets de la boule à facettes. Une couleur ajoutée à la palette apparaît ici après l’enregistrement.
    */
   pages: {
-    accueil: 'fuchsia' | 'mandarine' | 'aqua';
-    patinoire: 'fuchsia' | 'mandarine' | 'aqua';
-    cours: 'fuchsia' | 'mandarine' | 'aqua';
-    anniversaires: 'fuchsia' | 'mandarine' | 'aqua';
-    acces: 'fuchsia' | 'mandarine' | 'aqua';
-    contact: 'fuchsia' | 'mandarine' | 'aqua';
-    actualites: 'fuchsia' | 'mandarine' | 'aqua';
-    galerie: 'fuchsia' | 'mandarine' | 'aqua';
-    mentionsLegales: 'fuchsia' | 'mandarine' | 'aqua';
+    accueil: string;
+    patinoire: string;
+    cours: string;
+    anniversaires: string;
+    acces: string;
+    contact: string;
+    actualites: string;
+    galerie: string;
+    mentionsLegales: string;
   };
   /**
-   * Les trois couleurs du site. Le texte posé dessus est toujours noir : préférez des teintes vives et claires.
+   * Les couleurs du site. Le texte posé dessus est toujours noir : préférez des teintes vives et claires. Le rose, l’orange et le bleu font partie de l’identité du site : vous pouvez changer leur teinte, pas les supprimer.
    */
-  palette: {
-    fuchsia: string;
-    mandarine: string;
-    aqua: string;
-  };
+  couleurs?:
+    | {
+        nom: string;
+        hex: string;
+        /**
+         * Généré à l’enregistrement à partir du nom, puis figé.
+         */
+        cle?: string | null;
+        id?: string | null;
+      }[]
+    | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1342,12 +1351,13 @@ export interface ApparenceSelect<T extends boolean = true> {
         galerie?: T;
         mentionsLegales?: T;
       };
-  palette?:
+  couleurs?:
     | T
     | {
-        fuchsia?: T;
-        mandarine?: T;
-        aqua?: T;
+        nom?: T;
+        hex?: T;
+        cle?: T;
+        id?: T;
       };
   updatedAt?: T;
   createdAt?: T;

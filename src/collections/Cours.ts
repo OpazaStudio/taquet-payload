@@ -1,6 +1,7 @@
 import type { CollectionConfig } from 'payload'
 import { anyone, authenticated } from '@/access'
 import { revalidateCollection, revalidateCollectionDelete } from '@/hooks/revalidate'
+import { BLANC, CLE_RE } from '@/lib/couleurs'
 
 export const JOURS = [
   { label: 'Lundi', value: 'lundi' },
@@ -10,13 +11,6 @@ export const JOURS = [
   { label: 'Vendredi', value: 'vendredi' },
   { label: 'Samedi', value: 'samedi' },
   { label: 'Dimanche', value: 'dimanche' },
-]
-
-export const COULEURS = [
-  { label: 'Fuchsia', value: 'fuchsia' },
-  { label: 'Mandarine', value: 'mandarine' },
-  { label: 'Aqua', value: 'aqua' },
-  { label: 'Blanc', value: 'blanc' },
 ]
 
 export const Cours: CollectionConfig = {
@@ -71,7 +65,18 @@ export const Cours: CollectionConfig = {
       ],
     },
     { name: 'image', label: 'Photo', type: 'upload', relationTo: 'media' },
-    { name: 'couleur', label: 'Couleur de la tuile', type: 'select', options: COULEURS, defaultValue: 'mandarine', admin: { position: 'sidebar' } },
+    {
+      name: 'couleur',
+      label: 'Couleur de la tuile',
+      type: 'text',
+      defaultValue: 'mandarine',
+      validate: (v: unknown) => (v == null || v === '' || (typeof v === 'string' && (v === BLANC || CLE_RE.test(v))) ? true : 'Choisissez une couleur de la palette.'),
+      admin: {
+        position: 'sidebar',
+        description: 'Les couleurs se gèrent dans Réglages › Couleurs.',
+        components: { Field: { path: '/components/admin/ChoixCouleur#ChoixCouleur', clientProps: { blanc: true } } },
+      },
+    },
     { name: 'ordre', label: 'Ordre d’affichage', type: 'number', defaultValue: 10, admin: { position: 'sidebar' } },
   ],
 }

@@ -2,7 +2,7 @@
 import { usePathname } from 'next/navigation'
 import { useLayoutEffect } from 'react'
 import type { Apparence } from '@/payload-types'
-import { FACETS, pageFacetFrom, paletteFrom } from '@/lib/couleurs'
+import { pageFacetFrom, paletteFrom } from '@/lib/couleurs'
 import { facetFor } from '@/lib/nav'
 import { useLiveDoc } from '@/lib/useLiveDoc'
 
@@ -12,9 +12,9 @@ export function ApparenceLive({ apparence }: { apparence: Apparence }) {
   useLayoutEffect(() => {
     const s = document.documentElement.style
     const palette = paletteFrom(live)
-    for (const f of FACETS) {
-      s.setProperty(`--color-${f}`, palette[f].hex)
-      s.setProperty(`--color-${f}-deep`, palette[f].deep)
+    for (const [cle, c] of Object.entries(palette)) {
+      s.setProperty(`--color-${cle}`, c.hex)
+      s.setProperty(`--color-${cle}-deep`, c.deep)
     }
     const facet = facetFor(pathname, pageFacetFrom(live))
     s.setProperty('--facet', `var(--color-${facet})`)

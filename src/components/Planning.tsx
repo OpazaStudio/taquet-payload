@@ -1,9 +1,15 @@
 import type { Cours, InfosPratiques } from '@/payload-types'
-import { fmt, JOURS, JOUR_LABEL, toMinutes, type Jour } from '@/lib/hours'
-import { FACET_TILE_CLASS, type Facet } from '@/lib/nav'
+import { fmt, fmtFin, JOURS, JOUR_LABEL, toMinutes, type Jour } from '@/lib/hours'
+import type { CSSProperties } from 'react'
+import { tuile } from '@/lib/couleurs'
 import { PlanningReveal } from './PlanningReveal'
 
-type Item = { jour: Jour; debut: string; fin?: string | null; label: string; sub?: string | null; tile: string; ink: boolean }
+type Item = { jour: Jour; debut: string; fin?: string | null; label: string; sub?: string | null; tile: string; style?: CSSProperties; ink: boolean }
+
+const tuileItem = (couleur?: string | null) => {
+  const t = tuile(couleur)
+  return { tile: t.className, style: t.style }
+}
 
 export function Planning({ cours, infos, compact = false }: { cours: Cours[]; infos: InfosPratiques; compact?: boolean }) {
   const items: Item[] = []
@@ -12,7 +18,7 @@ export function Planning({ cours, infos, compact = false }: { cours: Cours[]; in
   }
   for (const c of cours) {
     for (const k of c.creneaux ?? []) {
-      items.push({ jour: k.jour, debut: k.debut, fin: k.fin, label: c.nom, sub: k.niveau, tile: FACET_TILE_CLASS[(c.couleur ?? 'mandarine') as Facet], ink: true })
+      items.push({ jour: k.jour, debut: k.debut, fin: k.fin, label: c.nom, sub: k.niveau, ...tuileItem(c.couleur), ink: true })
     }
   }
   const byDay = JOURS.map((jour) => ({
@@ -30,9 +36,9 @@ export function Planning({ cours, infos, compact = false }: { cours: Cours[]; in
             <ol className={`flex flex-1 flex-col gap-px bg-chrome-700 ${d.items.length === 0 ? 'min-h-12 md:min-h-40' : ''}`}>
               {d.items.length === 0 && <li className="flex-1 bg-chrome-950 px-3 py-3 text-[0.875rem] text-chrome-500">Fermé au public</li>}
               {d.items.map((it, i) => (
-                <li key={i} data-tile className={`tile ${it.tile} ${it.ink ? 'tile-ink' : ''} px-3 py-3 ${compact ? '' : 'md:py-4'}`}>
+                <li key={i} data-tile className={`tile ${it.tile} ${it.ink ? 'tile-ink' : ''} px-3 py-3 ${compact ? '' : 'md:py-4'}`} style={it.style}>
                   <span className="block text-[0.875rem] font-semibold tabular-nums">
-                    {fmt(it.debut)}{it.fin ? `–${fmt(it.fin)}` : ''}
+                    {fmt(it.debut)}{it.fin ? `–${fmtFin(it.fin)}` : ''}
                   </span>
                   <span className="block font-display text-[0.9375rem] font-bold leading-tight">{it.label}</span>
                   {it.sub && !compact && <span className="mt-1 block text-[0.8125rem] leading-snug">{it.sub}</span>}

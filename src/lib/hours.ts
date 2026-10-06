@@ -21,6 +21,11 @@ export const fmt = (h: string | number): string => {
   return mm === 0 ? `${hh}h` : `${hh}h${String(mm).padStart(2, '0')}`
 }
 
+export const fmtFin = (h: string | number): string => {
+  const mins = typeof h === 'number' ? h : toMinutes(h)
+  return mins % (24 * 60) === 0 ? 'minuit' : fmt(h)
+}
+
 export const nowInParis = (date = new Date()): { jour: Jour; minutes: number } => {
   const parts = new Intl.DateTimeFormat('fr-FR', {
     timeZone: 'Europe/Paris', weekday: 'long', hour: '2-digit', minute: '2-digit', hour12: false,
@@ -43,7 +48,7 @@ export const getOpeningState = (horaires: Creneau[], date = new Date()): Opening
     const o = toMinutes(c.ouverture)
     const f = toMinutes(c.fermeture)
     const end = f <= o ? f + 24 * 60 : f
-    if (minutes >= o && minutes < end) return { open: true, until: fmt(f), precision: c.precision }
+    if (minutes >= o && minutes < end) return { open: true, until: fmtFin(f), precision: c.precision }
   }
   for (let offset = 0; offset < 7; offset++) {
     const j = JOURS[(todayIdx + offset) % 7]

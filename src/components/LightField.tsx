@@ -1,18 +1,18 @@
 'use client'
 import { useEffect, useRef } from 'react'
 import { clientPalette } from '@/lib/couleurs'
-import type { Facet } from '@/lib/nav'
 
-type Props = { tint?: 'all' | Facet; variant?: 'home' | 'page'; speed?: number; className?: string }
+type Props = { tint?: string; variant?: 'home' | 'page'; speed?: number; className?: string }
 
 type Spot = { r: number; phi: number; ring: number; color: string; alpha: number; phase: number; tilt: number }
 
-const paletteFor = (tint: 'all' | Facet): string[] => {
-  const p = clientPalette()
+const paletteFor = (tint: string): string[] => {
+  const p = clientPalette(tint === 'all' || tint === 'blanc' ? [] : [tint])
   const f = p.fuchsia.hex, m = p.mandarine.hex, a = p.aqua.hex
   if (tint === 'all') return [f, a, m, f, a, '#ffffff']
   if (tint === 'blanc') return [a, f, m, '#ffffff']
-  return [p[tint].hex, p[tint].hex, p[tint].deep, tint === 'fuchsia' ? m : f, '#ffffff']
+  const c = p[tint] ?? p.fuchsia
+  return [c.hex, c.hex, c.deep, tint === 'fuchsia' ? m : f, '#ffffff']
 }
 
 const hash = (n: number) => {

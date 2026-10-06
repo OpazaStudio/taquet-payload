@@ -7,7 +7,8 @@ import { Planning } from '@/components/Planning'
 import { RichText } from '@/components/RichText'
 import { telHref } from '@/lib/format'
 import { fmt, JOUR_LABEL } from '@/lib/hours'
-import { FACET_TILE_CLASS, type Facet, type FacetCouleur } from '@/lib/nav'
+import { tuile } from '@/lib/couleurs'
+import type { FacetCouleur } from '@/lib/nav'
 import { useLiveDoc } from '@/lib/useLiveDoc'
 
 export function CoursView({ page: initial, infos, cours: initialCours, facet }: { page: PageCours; infos: InfosPratiques; cours: Cours[]; facet: FacetCouleur }) {
@@ -31,11 +32,11 @@ export function CoursView({ page: initial, infos, cours: initialCours, facet }: 
           <h2 className="font-display text-[clamp(1.75rem,3.5vw,2.5rem)] font-black text-mirror">Les cours et leurs intervenants</h2>
           <ul className="mt-8 grid gap-px bg-chrome-700 lg:grid-cols-2">
             {cours.map((c) => {
-              const tile = FACET_TILE_CLASS[(c.couleur ?? 'mandarine') as Facet]
+              const tile = tuile(c.couleur)
               const tels = (c.telephone ?? '').split('/').map((t) => t.trim()).filter(Boolean)
               return (
                 <li key={c.id} id={`cours-${c.id}`} className="flex min-w-0 flex-col bg-chrome-950 sm:flex-row">
-                  <div className={`tile ${tile} tile-ink flex w-full shrink-0 flex-col sm:w-64`}>
+                  <div className={`tile ${tile.className} tile-ink flex w-full shrink-0 flex-col sm:w-64`} style={tile.style}>
                     {c.image && <div className="relative aspect-[4/3]"><Img media={c.image} fill sizes="(min-width:640px) 256px, 100vw" /></div>}
                     <div className="flex flex-1 flex-col justify-between p-5">
                       <h3 className="font-display text-[1.375rem] font-black leading-tight">{c.nom}</h3>
