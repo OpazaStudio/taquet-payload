@@ -41,7 +41,7 @@ export function Planning({ cours, infos, compact = false }: { cours: Cours[]; in
                     {fmt(it.debut)}{it.fin ? `–${fmtFin(it.fin)}` : ''}
                   </span>
                   <span className="block font-display text-[0.9375rem] font-bold leading-tight">{it.label}</span>
-                  {it.sub && !compact && <span className="mt-1 block text-[0.8125rem] leading-snug">{it.sub}</span>}
+                  {it.sub &&<span className="mt-1 block text-[0.8125rem] leading-snug">{it.sub}</span>}
                 </li>
               ))}
             </ol>
