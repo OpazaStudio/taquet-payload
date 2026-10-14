@@ -34,6 +34,7 @@ export default async function Page() {
             ))}
           </ul>
         )}
+        {photos.docs.length > 0 && <p className="mt-6 text-[0.875rem] text-chrome-300">Photos : Romuald Augé</p>}
       </section>
     </>
   )

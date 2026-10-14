@@ -9,3 +9,8 @@ export const euros = (n: number): string =>
 
 export const dateLongue = (iso: string): string =>
   new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Europe/Paris' }).format(new Date(iso))
+
+export const urlHref = (url: string): string => {
+  const u = url.trim()
+  return /^https?:\/\//i.test(u) ? u : `https://${u.replace(/^\/+/, '')}`
+}

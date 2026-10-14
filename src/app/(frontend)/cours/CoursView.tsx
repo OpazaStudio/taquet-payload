@@ -5,7 +5,7 @@ import { Img } from '@/components/Img'
 import { PageHero } from '@/components/PageHero'
 import { Planning } from '@/components/Planning'
 import { RichText } from '@/components/RichText'
-import { telHref } from '@/lib/format'
+import { telHref, urlHref } from '@/lib/format'
 import { fmt, JOUR_LABEL } from '@/lib/hours'
 import { tuile } from '@/lib/couleurs'
 import type { FacetCouleur } from '@/lib/nav'
@@ -57,7 +57,7 @@ export function CoursView({ page: initial, infos, cours: initialCours, facet }: 
                     </ul>
                     <p className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-[0.9375rem]">
                       {tels.map((t) => <a key={t} href={telHref(t)} className="inline-flex items-center gap-2 font-semibold text-mirror hover:text-[var(--facet)]"><Phone className="size-4" aria-hidden="true" />{t}</a>)}
-                      {c.siteWeb && <a href={c.siteWeb} target="_blank" rel="noopener" className="inline-flex items-center gap-2 text-chrome-100 hover:text-[var(--facet)]"><Globe className="size-4" aria-hidden="true" />{c.siteWeb.replace(/^https?:\/\/(www\.)?/, '')}</a>}
+                      {c.siteWeb && <a href={urlHref(c.siteWeb)} target="_blank" rel="noopener" className="inline-flex items-center gap-2 text-chrome-100 hover:text-[var(--facet)]"><Globe className="size-4" aria-hidden="true" />{c.siteWeb.trim().replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '')}</a>}
                     </p>
                   </div>
                 </li>

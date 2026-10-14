@@ -11,7 +11,7 @@ export function Header({ infos }: { infos: InfosPratiques }) {
   return (
     <>
       {annonce?.active && annonce.texte && (
-        <div className="px-4 py-3" style={{ background: HEX_RE.test(annonce.fond ?? '') ? annonce.fond! : 'var(--color-fuchsia)', color: annonce.couleurTexte === 'blanc' ? 'var(--color-mirror)' : 'var(--color-ink)' }}>
+        <div className="px-4 py-3 max-lg:in-data-[menu=open]:hidden" style={{ background: HEX_RE.test(annonce.fond ?? '') ? annonce.fond! : 'var(--color-fuchsia)', color: annonce.couleurTexte === 'blanc' ? 'var(--color-mirror)' : 'var(--color-ink)' }}>
           <p className="mx-auto flex max-w-[1440px] items-center justify-center gap-3 text-center font-display text-[0.875rem] uppercase leading-tight sm:text-base">
             <span className="size-2.5 shrink-0 rounded-full bg-current motion-safe:animate-pulse" aria-hidden="true" />
             {annonce.texte}

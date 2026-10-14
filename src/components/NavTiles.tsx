@@ -19,7 +19,8 @@ export function NavTiles({ telephone, reseaux }: { telephone: string; reseaux?: 
     const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setOpen(false)
     document.addEventListener('keydown', onKey)
     document.body.style.overflow = 'hidden'
-    return () => { document.removeEventListener('keydown', onKey); document.body.style.overflow = '' }
+    document.documentElement.dataset.menu = 'open'
+    return () => { document.removeEventListener('keydown', onKey); document.body.style.overflow = ''; delete document.documentElement.dataset.menu }
   }, [open])
 
   return (
