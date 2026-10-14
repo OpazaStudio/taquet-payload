@@ -78,7 +78,7 @@ export const INFOS = {
   seancesPrivees: 'Le mercredi de 14h30 à 16h30, uniquement avec la carte d’abonnement.',
   annonce: { active: false, texte: '' },
   tarifs: [
-    { libelle: 'Entrée', prix: 9, precision: 'Patinage libre, avec vos rollers ou quads' },
+    { libelle: 'Entrée', prix: 9, precision: 'Patinage libre, avec vos rollers (lignes ou quads)' },
     { libelle: 'Moins de 5 ans', prix: 6 },
     { libelle: 'Carte 10 entrées', prix: 79 },
     { libelle: 'Location de rollers', prix: 4, precision: 'Si vous n’êtes pas équipé' },
